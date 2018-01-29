@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoldColor.Config;
 
 public class CameraMove : MonoBehaviour {
-    public GameObject test;
 
 	// Use this for initialization
 	void Start () {
@@ -12,6 +12,20 @@ public class CameraMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position =new Vector3(test.transform.position.x, test.transform.position.y, test.transform.position.z-10);
+        if (Input.mousePosition.y < Screen.height / 10)
+        {
+            Camera.main.transform.position += new Vector3(0, -1, 0) * CameraConfig.MoveSpeed;
+        }
+        if (Input.mousePosition.y > Screen.height * 9 / 10)
+        {
+            Camera.main.transform.position += new Vector3(0, 1, 0) * CameraConfig.MoveSpeed;
+        }
+        if (Input.mousePosition.x < Screen.width / 10) {
+            Camera.main.transform.position += new Vector3(-1, 0, 0) * CameraConfig.MoveSpeed;
+        }
+        if (Input.mousePosition.x > Screen.width * 9 / 10)
+        {
+            Camera.main.transform.position += new Vector3(1, 0, 0) * CameraConfig.MoveSpeed;
+        }
 	}
 }
