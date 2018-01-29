@@ -9,4 +9,8 @@ namespace HoldColor.Config {
     static class CameraConfig {
         public static float MoveSpeed = 0.05f;
     }
+    static class PlayerConfig
+    {
+        public static float MoveSpeed = 0.5f;
+    }
 }
