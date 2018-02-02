@@ -4,92 +4,9 @@ using UnityEngine;
 using HoldColor.Config;
 
 public class PlayerController : MonoBehaviour {
-    private enum PlayerStatus
-    {
-        picked,
-        unpicked,
-        pickedANDmoving,
-        unpickedANDmoving
-    }
-    private PlayerStatus status;
-    private GameObject canvas;
-    private Vector3 des;
-    private GameObject ppc;
-	// Use this for initialization
-	void Start () {
-        status = PlayerStatus.unpicked;
-        des = new Vector3(0, 0, 0);
-        canvas = transform.Find("Canvas").gameObject;
-        this.gameObject.AddComponent<BoxCollider>();
-        ppc = GameObject.Find("PathLine");
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        Debug.Log(this.status);
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (this.status == PlayerStatus.unpickedANDmoving)
-                    this.status = PlayerStatus.pickedANDmoving;
-                else this.status = PlayerStatus.picked;
-            } else
-            {
-                if (this.status == PlayerStatus.pickedANDmoving)
-                    this.status = PlayerStatus.unpickedANDmoving;
-                else this.status = PlayerStatus.unpicked;
-            }
-        }
-        if (Input.GetMouseButton(1) && this.status == PlayerStatus.picked
-            || Input.GetMouseButton(1) && this.status == PlayerStatus.pickedANDmoving)
-        {
-            this.status = PlayerStatus.pickedANDmoving;
-            des = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-		switch (status) {
-            case PlayerStatus.unpicked:
-                canvas.SetActive(false);
-                break;
-            case PlayerStatus.picked:
-                canvas.SetActive(true);
-                break;
-            case PlayerStatus.pickedANDmoving:
-                canvas.SetActive(true);
-                PlayerMove();
-                break;
-            case PlayerStatus.unpickedANDmoving:
-                canvas.SetActive(false);
-                PlayerMove();
-                break;
-        }
-	}
-
-    void PlayerMove ()
-    {
-        Vector3[] path = new Vector3[2];
-        path[0] = this.transform.position;
-        path[0].z = 0;
-        path[1] = des;
-        path[1].z = 0;
-        ppc.SendMessage("draw", path);
-        Vector3 cur, dir;
-        if (this.status == PlayerStatus.pickedANDmoving || this.status == PlayerStatus.unpickedANDmoving)
-        {
-            cur = this.transform.position;
-            des.z = 0; cur.z = 0;
-            dir = des - cur;
-            dir.Normalize();
-            this.transform.position += dir * PlayerConfig.MoveSpeed * Time.deltaTime;
-        }
-        if (Vector3.Distance(this.transform.position, des) <= 0.05f)
-        {
-            if (this.status == PlayerStatus.pickedANDmoving)
-                this.status = PlayerStatus.picked;
-            if (this.status == PlayerStatus.unpickedANDmoving)
-                this.status = PlayerStatus.unpicked;
-        }
-    }
+    public GameObject GameBody;
+    public GameObject Path;
+    public GameObject Interact;
+    public GameObject Info;
+    
 }
