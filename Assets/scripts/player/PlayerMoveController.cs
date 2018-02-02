@@ -21,7 +21,7 @@ public class PlayerMoveController : MonoBehaviour {
         des = new Vector3(0, 0, 0);
         canvas = GameObject.Find("PlayerController").GetComponent<PlayerController>().Info;
         this.gameObject.AddComponent<BoxCollider>();
-        ppc = GameObject.Find("PathLine");
+        ppc = GameObject.Find("PlayerController").GetComponent<PlayerController>().Path;
     }
 	
 	// Update is called once per frame
