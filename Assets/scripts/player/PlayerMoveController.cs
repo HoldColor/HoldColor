@@ -15,6 +15,7 @@ public class PlayerMoveController : MonoBehaviour {
     private GameObject canvas;
     private Vector3 des;
     private GameObject ppc;
+    private GameObject InteractLine;
 	// Use this for initialization
 	void Start () {
         status = PlayerStatus.unpicked;
@@ -22,6 +23,7 @@ public class PlayerMoveController : MonoBehaviour {
         canvas = GameObject.Find("PlayerController").GetComponent<PlayerController>().Info;
         this.gameObject.AddComponent<BoxCollider>();
         ppc = GameObject.Find("PlayerController").GetComponent<PlayerController>().Path;
+        InteractLine = GameObject.Find("PlayerController").GetComponent<PlayerController>().Interact;
     }
 	
 	// Update is called once per frame
@@ -52,19 +54,23 @@ public class PlayerMoveController : MonoBehaviour {
             case PlayerStatus.unpicked:
                 canvas.SetActive(false);
                 ppc.SetActive(false);
+                InteractLine.SetActive(false);
                 break;
             case PlayerStatus.picked:
                 canvas.SetActive(true);
                 ppc.SetActive(true);
+                InteractLine.SetActive(true);
                 break;
             case PlayerStatus.pickedANDmoving:
                 canvas.SetActive(true);
                 ppc.SetActive(true);
+                InteractLine.SetActive(true);
                 PlayerMove();
                 break;
             case PlayerStatus.unpickedANDmoving:
                 canvas.SetActive(false);
                 ppc.SetActive(false);
+                InteractLine.SetActive(false);
                 PlayerMove();
                 break;
         }
@@ -88,7 +94,7 @@ public class PlayerMoveController : MonoBehaviour {
             des.z = 0; cur.z = 0;
             dir = des - cur;
             dir.Normalize();
-            this.transform.position += dir * PlayerConfig.MoveSpeed * Time.deltaTime;
+            this.transform.position += dir * PlayerConfig._MoveSpeed * Time.deltaTime;
         }
         if (Vector3.Distance(this.transform.position, des) <= 0.05f)
         {
