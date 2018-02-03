@@ -58,7 +58,7 @@ public class PlayerMoveController : MonoBehaviour {
                 break;
             case PlayerStatus.picked:
                 canvas.SetActive(true);
-                ppc.SetActive(true);
+                ppc.SetActive(false);
                 InteractLine.SetActive(true);
                 break;
             case PlayerStatus.pickedANDmoving:
