@@ -51,16 +51,20 @@ public class PlayerMoveController : MonoBehaviour {
 		switch (status) {
             case PlayerStatus.unpicked:
                 canvas.SetActive(false);
+                ppc.SetActive(false);
                 break;
             case PlayerStatus.picked:
                 canvas.SetActive(true);
+                ppc.SetActive(true);
                 break;
             case PlayerStatus.pickedANDmoving:
                 canvas.SetActive(true);
+                ppc.SetActive(true);
                 PlayerMove();
                 break;
             case PlayerStatus.unpickedANDmoving:
                 canvas.SetActive(false);
+                ppc.SetActive(false);
                 PlayerMove();
                 break;
         }
@@ -68,12 +72,15 @@ public class PlayerMoveController : MonoBehaviour {
 
     void PlayerMove ()
     {
-        Vector3[] path = new Vector3[2];
-        path[0] = this.transform.position;
-        path[0].z = 0;
-        path[1] = des;
-        path[1].z = 0;
-        ppc.SendMessage("draw", path);
+        if (ppc.activeSelf == true)
+        {
+            Vector3[] path = new Vector3[2];
+            path[0] = this.transform.position;
+            path[0].z = 0;
+            path[1] = des;
+            path[1].z = 0;
+            ppc.SendMessage("draw", path);
+        }
         Vector3 cur, dir;
         if (this.status == PlayerStatus.pickedANDmoving || this.status == PlayerStatus.unpickedANDmoving)
         {
