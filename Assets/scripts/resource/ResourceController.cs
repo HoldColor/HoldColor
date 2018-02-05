@@ -9,7 +9,7 @@ public class ResourceController {
             return _playerResources;
         }
         set {
-            _playerResources = value * 2;
+            _playerResources = value;
         }
     }
     private ResourceController() {
