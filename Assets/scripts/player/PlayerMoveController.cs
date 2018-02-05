@@ -52,7 +52,7 @@ public class PlayerMoveController : MonoBehaviour {
         }
 		switch (status) {
             case PlayerStatus.unpicked:
-                canvas.SetActive(false);
+                canvas.SetActive(true);
                 ppc.SetActive(false);
                 InteractLine.SetActive(false);
                 break;
@@ -68,7 +68,7 @@ public class PlayerMoveController : MonoBehaviour {
                 PlayerMove();
                 break;
             case PlayerStatus.unpickedANDmoving:
-                canvas.SetActive(false);
+                canvas.SetActive(true);
                 ppc.SetActive(false);
                 InteractLine.SetActive(false);
                 PlayerMove();
