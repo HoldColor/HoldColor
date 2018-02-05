@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 114817316862084746}
   - component: {fileID: 114191342183341808}
   m_Layer: 0
-  m_Name: InfoBar
+  m_Name: StateBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
