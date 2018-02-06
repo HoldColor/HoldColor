@@ -43,8 +43,8 @@ public class InteractController : MonoBehaviour {
     }
 	// Use this for initialization
 	private void Awake () {
-        InteractArea = transform.Find("InteractArea").gameObject;
-        InteractCollider = transform.Find("InteractCollider").gameObject;
+        InteractArea = transform.GetChild(0).gameObject;
+        InteractCollider = transform.GetChild(1).gameObject;
         // AreaCircle
         linerenderer = InteractArea.GetComponent<LineRenderer>();
         _interactAreaColor = Color.blue;
@@ -62,6 +62,7 @@ public class InteractController : MonoBehaviour {
 
         ColliderComponent = InteractCollider.GetComponent<CircleCollider2D>();
         ColliderComponent.radius = _interactRadius;
+        ColliderComponent.isTrigger = true;
     }
 
     private void Draw(int Count, float Radius)

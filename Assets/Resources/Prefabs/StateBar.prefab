@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 223039183948623124}
   - component: {fileID: 114840017566403852}
   - component: {fileID: 114150705257300098}
-  - component: {fileID: 114191342183341808}
+  - component: {fileID: 114793405920330210}
   m_Layer: 0
   m_Name: StateBar
   m_TagString: Untagged
@@ -258,17 +258,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114191342183341808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1333840638679726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f458e8c51d4bf174c884aa45a7c05142, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114242951579741214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -431,6 +420,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114793405920330210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1333840638679726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff4db9741bb2024f98d09f919375af2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114798170655691676
 MonoBehaviour:
   m_ObjectHideFlags: 1

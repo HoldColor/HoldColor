@@ -90,7 +90,7 @@ public class StateBar : MonoBehaviour {
     }
     public void RestoreHealth (int value)
     {
-        if (_TotalHealth - _CurrentHealth <= value)
+        if (_TotalHealth - _CurrentHealth >= value)
         {
             _CurrentHealth += value;
             RefreshHealthInfo();
@@ -114,7 +114,7 @@ public class StateBar : MonoBehaviour {
 
     public void RestoreEnergy (int value)
     {
-        if (_TotalEnergy - _CurrentEnergy <= value)
+        if (_TotalEnergy - _CurrentEnergy >= value)
         {
             _CurrentEnergy += value;
             RefreshEnergyInfo();

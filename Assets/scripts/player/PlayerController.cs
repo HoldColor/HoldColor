@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
         _energy = 100;
         statebar.TotalHealth = _health;
         statebar.TotalEnergy = _energy;
-        statebar.CurrentEnergy = _energy;
+        statebar.CurrentEnergy = 10;
         statebar.CurrentHealth = _health;
     }
 }
