@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     {
         _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
+        Interact.GetComponent<InteractController>().InteractAreaColor = _camp;
         Interact.GetComponent<InteractController>().InteractRadius = 5f;
         StateBar statebar = Info.GetComponent<StateBar>();
         _health = 300;

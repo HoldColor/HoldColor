@@ -16,7 +16,7 @@ namespace HoldColor.Config {
         public static Color Purple = new Color(149f / 255f, 177f / 255f, 205f / 255f);
     }
     static class CameraConfig {
-        public static float _MoveSpeed = 0.05f;
+        public static float _MoveSpeed = 0.1f;
     }
     static class PlayerConfig
     {
