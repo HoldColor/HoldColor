@@ -76,4 +76,14 @@ public class InteractController : MonoBehaviour {
             linerenderer.SetPosition(i, new Vector3(x, y, 0));
         }
     }
+
+    public void ShowArea()
+    {
+        InteractArea.SetActive(true);
+    }
+
+    public void HideArea()
+    {
+        InteractArea.SetActive(false);
+    }
 }
