@@ -8,5 +8,10 @@ public class PlayerController : MonoBehaviour {
     public GameObject Path;
     public GameObject Interact;
     public GameObject Info;
-    
+    private Color Camp;
+    private void Awake()
+    {
+        Camp = CampDefine.Orange;
+        GameBody.GetComponent<SpriteRenderer>().color = Camp;
+    }
 }
