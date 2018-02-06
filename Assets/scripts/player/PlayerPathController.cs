@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerPathController : MonoBehaviour {
     private LineRenderer linerenderer;
+    private Color LineColor;
 	// Use this for initialization
 	void Start () {
         linerenderer = this.gameObject.GetComponent<LineRenderer>();
-        linerenderer.startColor = Color.red;
-        linerenderer.endColor = Color.red;
-        linerenderer.positionCount = 2;
+        LineColor = new Color(76f / 175f, 158f / 255f, 80f / 255f, 0.8f);
+        linerenderer.startColor = LineColor;
+        linerenderer.endColor = LineColor;
         linerenderer.startWidth = 0.1f;
         linerenderer.endWidth = 0.1f; 
 	}

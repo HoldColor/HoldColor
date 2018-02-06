@@ -8,10 +8,19 @@ public class PlayerController : MonoBehaviour {
     public GameObject Path;
     public GameObject Interact;
     public GameObject Info;
-    private Color Camp;
+    private Color _camp;
+    public Color Camp {
+        get {
+            return _camp;
+        }
+        set
+        {
+            _camp = value;
+        }
+    }
     private void Awake()
     {
-        Camp = CampDefine.Orange;
-        GameBody.GetComponent<SpriteRenderer>().color = Camp;
+        _camp = CampDefine.Orange;
+        GameBody.GetComponent<SpriteRenderer>().color = _camp;
     }
 }
