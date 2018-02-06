@@ -23,7 +23,7 @@ public class PlayerMoveController : MonoBehaviour {
         canvas = GameObject.Find("PlayerController").GetComponent<PlayerController>().Info;
         this.gameObject.AddComponent<BoxCollider>();
         ppc = GameObject.Find("PlayerController").GetComponent<PlayerController>().Path;
-        InteractLine = GameObject.Find("PlayerController").GetComponent<PlayerController>().Interact;
+        InteractLine = GameObject.Find("PlayerController").GetComponent<PlayerController>().Interact.GetComponent<InteractController>().InteractArea;
     }
 	
 	// Update is called once per frame

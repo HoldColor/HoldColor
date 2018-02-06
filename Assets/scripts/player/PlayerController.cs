@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject Interact;
     public GameObject Info;
     private Color _camp;
+    private float _interactRadius;
     public Color Camp
     {
         get {
@@ -17,8 +18,8 @@ public class PlayerController : MonoBehaviour {
     }
     private void Start()
     {
-        Debug.Log("Player");
         _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
+        Interact.GetComponent<InteractController>().InteractRadius = 5f;
     }
 }

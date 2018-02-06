@@ -18,7 +18,6 @@ public class ReserveController : MonoBehaviour {
     }
     private void Start()
     {
-        Debug.Log("Reserve");
         _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
     }
