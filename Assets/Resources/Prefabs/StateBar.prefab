@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 223039183948623124}
   - component: {fileID: 114840017566403852}
   - component: {fileID: 114150705257300098}
-  - component: {fileID: 114817316862084746}
   - component: {fileID: 114191342183341808}
   m_Layer: 0
   m_Name: StateBar
@@ -465,17 +464,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 50/50
---- !u!114 &114817316862084746
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1333840638679726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff4db9741bb2024f98d09f919375af2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114833682774580900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -577,7 +565,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1755509309
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &224080687240881106

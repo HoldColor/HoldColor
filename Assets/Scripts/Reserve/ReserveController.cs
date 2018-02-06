@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using HoldColor.Config;
 
-public class HingeController : MonoBehaviour {
+public class ReserveController : MonoBehaviour {
 
-	public GameObject ResourceUI;
+    public GameObject Info;
     public GameObject GameBody;
     private Color _camp;
+    public GameObject Interact;
     public Color Camp
     {
         get
@@ -17,7 +18,7 @@ public class HingeController : MonoBehaviour {
     }
     private void Start()
     {
-        Debug.Log("Hinge");
+        Debug.Log("Reserve");
         _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
     }
