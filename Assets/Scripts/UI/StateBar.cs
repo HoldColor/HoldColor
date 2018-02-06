@@ -34,7 +34,7 @@ public class StateBar : MonoBehaviour {
         set
         {
             _CurrentEnergy = value;
-            RefreshHealthInfo();
+            RefreshEnergyInfo();
         }
     }
     public int TotalHealth
