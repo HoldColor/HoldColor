@@ -27,6 +27,6 @@ public class ReserveInteractAction : MonoBehaviour {
     }
     private void AddPlayerEnergy()
     {
-        PlayerController.GetComponent<PlayerController>().Info.GetComponent<StateBar>().RestoreEnergy(1);
+        PlayerController.GetComponent<PlayerController>().Info.GetComponent<StateBar>().RestoreEnergy(10);
     }
 }
