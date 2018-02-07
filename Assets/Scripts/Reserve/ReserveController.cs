@@ -9,6 +9,7 @@ public class ReserveController : MonoBehaviour {
     public GameObject GameBody;
     private Color _camp;
     public GameObject Interact;
+    public GameObject BodyCollider;
     public Color Camp
     {
         get
@@ -20,5 +21,7 @@ public class ReserveController : MonoBehaviour {
     {
         _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
+        Interact.GetComponent<InteractController>().InteractCollider.GetComponent<ColliderController>().Camp = _camp;
+        BodyCollider.GetComponent<ColliderController>().Camp = _camp;
     }
 }

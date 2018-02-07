@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ReserveInteractAction : MonoBehaviour {
-    GameObject PlayerController;
+    private GameObject PlayerController;
+    private ReserveController OwnController;
+    private Collider2D PlayerBodyCollision;
 	// Use this for initialization
 	void Start () {
         PlayerController = GameObject.Find("PlayerController");
-
+        OwnController = GameObject.Find("ReserveController").GetComponent<ReserveController>();
     }
 	
 	// Update is called once per frame
@@ -16,14 +18,19 @@ public class ReserveInteractAction : MonoBehaviour {
 	}
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
+        if (collision.gameObject.tag == "Player" && colliderController.Type == ColliderController.ColliderType.BodyCollider && OwnController.Camp == colliderController.Camp)
         {
-            InvokeRepeating("AddPlayerEnergy", 0, 1);
+            PlayerBodyCollision = collision;
+            InvokeRepeating("AddPlayerEnergy", 0, 2);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        CancelInvoke();
+        if (collision == PlayerBodyCollision)
+        {
+            CancelInvoke();
+        }
     }
     private void AddPlayerEnergy()
     {

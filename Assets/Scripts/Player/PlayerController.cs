@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject Path;
     public GameObject Interact;
     public GameObject Info;
+    public GameObject BodyCollider;
     private int _health;
     private int _energy;
     private Color _camp;
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour {
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
         Interact.GetComponent<InteractController>().InteractAreaColor = _camp;
         Interact.GetComponent<InteractController>().InteractRadius = 5f;
+        Interact.GetComponent<InteractController>().InteractCollider.GetComponent<ColliderController>().Camp = _camp;
+        BodyCollider.GetComponent<ColliderController>().Camp = _camp;
         StateBar statebar = Info.GetComponent<StateBar>();
         _health = 300;
         _energy = 100;
