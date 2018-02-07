@@ -803,6 +803,11 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!1 &689043819 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1333840638679726, guid: 35a3ac504418ab041a5abb33093d030e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1115929888}
 --- !u!1 &696802755
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,7 +835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9410664dd3536546a54e716c95db9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Info: {fileID: 0}
+  Info: {fileID: 689043819}
   GameBody: {fileID: 1604156729}
   Interact: {fileID: 1547928666}
 --- !u!4 &696802757
@@ -1406,6 +1411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1604156731}
   - component: {fileID: 1604156730}
+  - component: {fileID: 1604156732}
   m_Layer: 0
   m_Name: Reserve
   m_TagString: Untagged
@@ -1472,6 +1478,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604156732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1604156729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dfa9fd92a1e9464aae8063848ca65ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1880108020
 GameObject:
   m_ObjectHideFlags: 0

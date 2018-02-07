@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4eeab49c628f14e91f8e6bb397cda9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractArea: {fileID: 1211794258844210}
+  InteractCollider: {fileID: 1662188621434164}
 --- !u!120 &120640472044609954
 LineRenderer:
   m_ObjectHideFlags: 1

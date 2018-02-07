@@ -32,7 +32,7 @@ public class PlayerMoveController : MonoBehaviour {
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == this.gameObject)
             {
                 if (this.status == PlayerStatus.unpickedANDmoving)
                     this.status = PlayerStatus.pickedANDmoving;

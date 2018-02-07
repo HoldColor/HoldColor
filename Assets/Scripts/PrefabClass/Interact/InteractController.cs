@@ -43,8 +43,9 @@ public class InteractController : MonoBehaviour {
     }
 	// Use this for initialization
 	private void Awake () {
-        InteractArea = transform.GetChild(0).gameObject;
-        InteractCollider = transform.GetChild(1).gameObject;
+        // InteractArea = transform.GetChild(0).gameObject;
+       // InteractCollider = transform.GetChild(1).gameObject;
+
         // AreaCircle
         linerenderer = InteractArea.GetComponent<LineRenderer>();
         _interactAreaColor = Color.blue;
