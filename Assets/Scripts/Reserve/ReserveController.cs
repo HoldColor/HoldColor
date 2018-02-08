@@ -23,12 +23,12 @@ public class ReserveController : MonoBehaviour {
     {
         _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
+        Interact.GetComponent<InteractController>().InteractAreaColor = _camp;
         Interact.GetComponent<InteractController>().InteractCollider.GetComponent<ColliderController>().Camp = _camp;
         BodyCollider.GetComponent<ColliderController>().Camp = _camp;
         StateBar statebar = Info.GetComponent<StateBar>();
         _health = ReserveConfig._TotalHealth;
         _energy = ReserveConfig._TotalEnergy;
-        Debug.Log(_health + "//" + _energy);
         statebar.TotalHealth = _health;
         statebar.TotalEnergy = _energy;
         statebar.CurrentEnergy = _energy;

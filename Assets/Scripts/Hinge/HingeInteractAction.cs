@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using HoldColor.Config;
 
-public class ReserveInteractAction : MonoBehaviour {
-    private ReserveController OwnController;
+public class HingeInteractAction : MonoBehaviour {
+    private HingeController OwnController;
     private List<Collider2D> BodyCollisions;
-    private int _addEnergyByCycle;
-    private float _cycle;
     private InteractController interactController;
+    private int _addHealthBySecond;
     private float _interactAreaRadius;
     public float InteractAreaRadius
     {
@@ -22,38 +21,22 @@ public class ReserveInteractAction : MonoBehaviour {
             interactController.InteractRadius = value;
         }
     }
-    public int AddResourceByCycle
+    public int AddHealthBySecond
     {
         get
         {
-            return _addEnergyByCycle;
+            return _addHealthBySecond;
         }
         set
         {
-            _addEnergyByCycle = value;
+            _addHealthBySecond = value;
         }
     }
-    public float Cycle {
-        get
-        {
-            return _cycle;
-        }
-        set
-        {
-            _cycle = value;
-            if (IsInvoking())
-            {
-                CancelInvoke();
-                InvokeRepeating("AddPlayerEnergy", 0, value);
-            }
-        }
-    }
-	// Use this for initialization
-	void Start () {
-        OwnController = gameObject.GetComponentInParent<ReserveController>();
+    // Use this for initialization
+    void Start () {
+        OwnController = gameObject.GetComponentInParent<HingeController>();
         BodyCollisions = new List<Collider2D>();
-        _addEnergyByCycle = ReserveConfig._AddEnergyByCycle;
-        _cycle = ReserveConfig._AddEnergyCycle;
+        _addHealthBySecond = HingeConfig._AddHealthBySecond;
         _interactAreaRadius = ReserveConfig._InteractAreaRadius;
         interactController = gameObject.GetComponentInParent<InteractController>();
         interactController.InteractRadius = _interactAreaRadius;
@@ -63,6 +46,7 @@ public class ReserveInteractAction : MonoBehaviour {
 	void Update () {
 		
 	}
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
@@ -70,11 +54,12 @@ public class ReserveInteractAction : MonoBehaviour {
         {
             if (BodyCollisions.Count == 0)
             {
-                InvokeRepeating("AddPlayerEnergy", 0, _cycle);
+                InvokeRepeating("AddHealth", 0, 1);
             }
             BodyCollisions.Add(collision);
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         BodyCollisions.Remove(collision);
@@ -83,12 +68,13 @@ public class ReserveInteractAction : MonoBehaviour {
             CancelInvoke();
         }
     }
-    private void AddPlayerEnergy()
+
+    private void AddHealth()
     {
         foreach (Collider2D C in BodyCollisions)
         {
             ColliderController ctrl = C.gameObject.GetComponent<ColliderController>();
-            ctrl.Info.GetComponent<StateBar>().RestoreEnergy(_addEnergyByCycle);
+            ctrl.Info.GetComponent<StateBar>().RestoreHealth(_addHealthBySecond);
         }
     }
 }
