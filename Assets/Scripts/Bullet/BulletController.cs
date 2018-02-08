@@ -42,8 +42,10 @@ public class BulletController : MonoBehaviour {
         {
             _camp = value;
             gameObject.GetComponent<SpriteRenderer>().color = value;
-            gameObject.GetComponent<TrailRenderer>().startColor = value;
-            gameObject.GetComponent<TrailRenderer>().endColor = value;
+            Color TrailColor = value;
+            TrailColor.a = 0.7f;
+            gameObject.GetComponent<TrailRenderer>().startColor = TrailColor;
+            gameObject.GetComponent<TrailRenderer>().endColor = TrailColor;
         }
     }
     // Use this for initialization

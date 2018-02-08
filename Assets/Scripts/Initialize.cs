@@ -14,7 +14,7 @@ public class Initialize : MonoBehaviour {
     }
 	// Use this for initialization
 	private void Awake () {
-        _camp = CampDefine.Orange;
+        _camp = CampDefine.Green;
         Screen.SetResolution(GameConfig._ScreenWidth, GameConfig._ScreenHeight, GameConfig._FullScreen);
 	}
 }
