@@ -21,7 +21,7 @@ public class CameraMove : MonoBehaviour {
         }
         if (isFollowing)
         {
-            Vector3 player = GameObject.Find("PlayerController").GetComponent<PlayerController>().GameBody.transform.position;
+            Vector3 player = GameObject.Find("Player").GetComponent<PlayerController>().GameBody.transform.position;
             player.z = -10;
             transform.position = player;
         } else {

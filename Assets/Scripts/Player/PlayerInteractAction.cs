@@ -10,12 +10,11 @@ public class PlayerInteractAction : MonoBehaviour {
     void Awake()
     {
         Bullet = Resources.Load<GameObject>("Prefabs/Bullet");
-        OwnController = GameObject.Find("PlayerController").GetComponent<PlayerController>();
+        OwnController = gameObject.GetComponentInParent<PlayerController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name);
         ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
         if (colliderController.Type == ColliderController.ColliderType.BodyCollider && colliderController.Camp != OwnController.Camp)
         {
@@ -37,7 +36,7 @@ public class PlayerInteractAction : MonoBehaviour {
         if (OwnController.Info.GetComponent<StateBar>().CurrentEnergy >= 10)
         {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation);
-            GameObject.Find("PlayerController").GetComponent<PlayerController>().Info.GetComponent<StateBar>().ConsumeEnergy(10);
+            OwnController.Info.GetComponent<StateBar>().ConsumeEnergy(10);
             BulletController bulletController = bullet.GetComponent<BulletController>();
             bulletController.target = Target.GetComponent<ColliderController>().GameBody;
             bulletController.targetCollider = Target;

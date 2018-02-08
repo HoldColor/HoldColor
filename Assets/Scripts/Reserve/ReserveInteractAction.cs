@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ReserveInteractAction : MonoBehaviour {
-    private GameObject PlayerController;
     private ReserveController OwnController;
-    private Collider2D PlayerBodyCollision;
+    private List<Collider2D> BodyCollisions;
 	// Use this for initialization
 	void Start () {
-        PlayerController = GameObject.Find("PlayerController");
-        OwnController = GameObject.Find("ReserveController").GetComponent<ReserveController>();
+        OwnController = gameObject.GetComponentInParent<ReserveController>();
+        BodyCollisions = new List<Collider2D>();
     }
 	
 	// Update is called once per frame
@@ -19,21 +18,32 @@ public class ReserveInteractAction : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
-        if (collision.gameObject.tag == "Player" && colliderController.Type == ColliderController.ColliderType.BodyCollider && OwnController.Camp == colliderController.Camp)
+        if (colliderController.Type == ColliderController.ColliderType.BodyCollider && OwnController.Camp == colliderController.Camp && collision.gameObject != OwnController.BodyCollider)
         {
-            PlayerBodyCollision = collision;
-            InvokeRepeating("AddPlayerEnergy", 0, 2);
+            Debug.Log(collision.tag);
+            if (BodyCollisions.Count == 0)
+            {
+                Debug.Log("startINvoke");
+                InvokeRepeating("AddPlayerEnergy", 0, 2);
+            }
+            BodyCollisions.Add(collision);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision == PlayerBodyCollision)
+        BodyCollisions.Remove(collision);
+        if (BodyCollisions.Count == 0)
         {
+            Debug.Log("stopInvoke");
             CancelInvoke();
         }
     }
     private void AddPlayerEnergy()
     {
-        PlayerController.GetComponent<PlayerController>().Info.GetComponent<StateBar>().RestoreEnergy(10);
+        foreach (Collider2D C in BodyCollisions)
+        {
+            ColliderController ctrl = C.gameObject.GetComponent<ColliderController>();
+            ctrl.Info.GetComponent<StateBar>().RestoreEnergy(10);
+        }
     }
 }

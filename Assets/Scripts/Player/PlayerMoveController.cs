@@ -4,6 +4,7 @@ using UnityEngine;
 using HoldColor.Config;
 
 public class PlayerMoveController : MonoBehaviour {
+    private PlayerController OwnController;
     private enum PlayerStatus
     {
         picked,
@@ -18,12 +19,13 @@ public class PlayerMoveController : MonoBehaviour {
     private GameObject InteractLine;
 	// Use this for initialization
 	void Start () {
+        OwnController = gameObject.GetComponentInParent<PlayerController>();
         status = PlayerStatus.unpicked;
         des = new Vector3(0, 0, 0);
-        canvas = GameObject.Find("PlayerController").GetComponent<PlayerController>().Info;
+        canvas = OwnController.Info;
         this.gameObject.AddComponent<BoxCollider>();
-        ppc = GameObject.Find("PlayerController").GetComponent<PlayerController>().Path;
-        InteractLine = GameObject.Find("PlayerController").GetComponent<PlayerController>().Interact.GetComponent<InteractController>().InteractArea;
+        ppc = OwnController.Path;
+        InteractLine = OwnController.Interact.GetComponent<InteractController>().InteractArea;
     }
 	
 	// Update is called once per frame

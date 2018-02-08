@@ -27,7 +27,7 @@ public class ReservePickAction : MonoBehaviour {
     private ReserveStatus _status;
 	void Start () {
         _status = ReserveStatus.unpicked;
-        interact = GameObject.Find("ReserveController").GetComponent<ReserveController>().Interact.GetComponent<InteractController>();
+        interact = gameObject.GetComponentInParent<ReserveController>().Interact.GetComponent<InteractController>();
         interact.HideArea();
         this.gameObject.AddComponent<BoxCollider>();
 	}
