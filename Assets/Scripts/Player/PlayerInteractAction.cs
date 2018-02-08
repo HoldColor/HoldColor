@@ -1,16 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoldColor.Config;
 
 public class PlayerInteractAction : MonoBehaviour {
     private GameObject Bullet;
     private Collider2D Target;
     private PlayerController OwnController;
+    private float _firingRate;
+    private int _damage;
+    private float _bulletSpeed;
+    public float BulletSpeed
+    {
+        get
+        {
+            return _bulletSpeed;
+        }
+        set
+        {
+            _bulletSpeed = value;
+        }
+    }
+    public int Damage
+    {
+        get
+        {
+            return _damage;
+        }
+        set
+        {
+            _damage = value;
+        }
+    }
+    public float FiringRate
+    {
+        get
+        {
+            return _firingRate;
+        }
+        set
+        {
+            _firingRate = value;
+            if (IsInvoking())
+            {
+                CancelInvoke();
+                InvokeRepeating("Shoot", 0, value);
+            }
+        }
+    }
     // Use this for initialization
     void Awake()
     {
         Bullet = Resources.Load<GameObject>("Prefabs/Bullet");
         OwnController = gameObject.GetComponentInParent<PlayerController>();
+        _firingRate = PlayerConfig._FiringRate;
+        _damage = PlayerConfig._Damage;
+        _bulletSpeed = PlayerConfig._BulletSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,7 +64,7 @@ public class PlayerInteractAction : MonoBehaviour {
         if (colliderController.Type == ColliderController.ColliderType.BodyCollider && colliderController.Camp != OwnController.Camp)
         {
             Target = collision;
-            InvokeRepeating("Shoot", 0, 0.5f);
+            InvokeRepeating("Shoot", 0, _firingRate);
         }
     }
 
@@ -36,6 +81,8 @@ public class PlayerInteractAction : MonoBehaviour {
         if (OwnController.Info.GetComponent<StateBar>().CurrentEnergy >= 10)
         {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation);
+            bullet.GetComponent<BulletController>().Damage = _damage;
+            bullet.GetComponent<BulletController>().Speed = _bulletSpeed;
             OwnController.Info.GetComponent<StateBar>().ConsumeEnergy(10);
             BulletController bulletController = bullet.GetComponent<BulletController>();
             bulletController.target = Target.GetComponent<ColliderController>().GameBody;

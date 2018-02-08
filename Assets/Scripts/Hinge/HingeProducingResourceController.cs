@@ -2,23 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HoldColor.Config;
 
 public class HingeProducingResourceController : MonoBehaviour {
 
     private Animator animator;
     private Text ResourceValueUI;
-    private int _resourceBySecond;
+    private int _resourceByCycle;
     private AnimationClip ProducingClip;
-    public int ResourceBySecond
+    private float _cycle;
+    public int ResourceByCycle
     {
         get
         {
-            return _resourceBySecond;
+            return _resourceByCycle;
         }
         set
         {
-            _resourceBySecond = value;
-            ResourceValueUI.text = "Resource +" + _resourceBySecond;
+            _resourceByCycle = value;
+            ResourceValueUI.text = "Resource +" + _resourceByCycle;
+        }
+    }
+    public float Cycle
+    {
+        get
+        {
+            return _cycle;
+        }
+        set
+        {
+            _cycle = value;
+            float ProductingSpeed = 1 / value;
+            animator.SetFloat("ProductingSpeed", ProductingSpeed);
         }
     }
 
@@ -27,9 +42,11 @@ public class HingeProducingResourceController : MonoBehaviour {
         ResourceValueUI = gameObject.GetComponent<Text>();
         animator = gameObject.GetComponent<Animator>();
         animator.SetBool("Start", true);
-        _resourceBySecond = 2;
-        ResourceValueUI.text = "Resource +" + _resourceBySecond;
-
+        _resourceByCycle = ResourceConfig._AddResourceByCycle;
+        _cycle = ResourceConfig._AddResourceCycle;
+        ResourceValueUI.text = "Resource +" + _resourceByCycle;
+        float ProductingSpeed = _cycle;
+        animator.SetFloat("ProductingSpeed", ProductingSpeed);
         for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++)
         {
             if (animator.runtimeAnimatorController.animationClips[i].name == "HingeProducing")
@@ -37,7 +54,6 @@ public class HingeProducingResourceController : MonoBehaviour {
                 ProducingClip = animator.runtimeAnimatorController.animationClips[i];
             }
         }
-
         AnimationEvent evt = new AnimationEvent();
         evt.time = 0;
         evt.functionName = "AddResource";
@@ -46,6 +62,6 @@ public class HingeProducingResourceController : MonoBehaviour {
 
     void AddResource()
     {
-        ResourceController.instance.PlayerResources += _resourceBySecond;
+        ResourceController.instance.PlayerResources += _resourceByCycle;
     }
 }

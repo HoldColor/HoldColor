@@ -6,6 +6,7 @@ public class BulletController : MonoBehaviour {
     private float _speed;
     public bool isHit;
     public bool isShoot;
+    private int _damage;
     private Color _camp;
     public GameObject target;
     public Collider2D targetCollider;
@@ -18,6 +19,17 @@ public class BulletController : MonoBehaviour {
         set
         {
             _speed = value;
+        }
+    }
+    public int Damage
+    {
+        get
+        {
+            return _damage;
+        }
+        set
+        {
+            _damage = value;
         }
     }
     public Color Camp
@@ -40,6 +52,7 @@ public class BulletController : MonoBehaviour {
         isHit = false;
         target = null;
         _speed = 3.0f;
+        _damage = 5;
     }
 
     // Update is called once per frame
@@ -64,7 +77,7 @@ public class BulletController : MonoBehaviour {
         if (collision == targetCollider)
         {
             isHit = true;
-            targetCollider.GetComponent<ColliderController>().Info.GetComponent<StateBar>().ConsumeHealth(10);
+            targetCollider.GetComponent<ColliderController>().Info.GetComponent<StateBar>().ConsumeHealth(_damage);
             Destroy(this.gameObject);
         }
     }

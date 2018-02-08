@@ -1,14 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoldColor.Config;
 
 public class ReserveInteractAction : MonoBehaviour {
     private ReserveController OwnController;
     private List<Collider2D> BodyCollisions;
+    private int _addEnergyByCycle;
+    private float _cycle;
+    public int AddResourceByCycle
+    {
+        get
+        {
+            return _addEnergyByCycle;
+        }
+        set
+        {
+            _addEnergyByCycle = value;
+        }
+    }
+    public float Cycle {
+        get
+        {
+            return _cycle;
+        }
+        set
+        {
+            _cycle = value;
+            if (IsInvoking())
+            {
+                CancelInvoke();
+                InvokeRepeating("AddPlayerEnergy", 0, value);
+            }
+        }
+    }
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         OwnController = gameObject.GetComponentInParent<ReserveController>();
         BodyCollisions = new List<Collider2D>();
+        _addEnergyByCycle = ReserveConfig._AddEnergyByCycle;
+        _cycle = ReserveConfig._AddEnergyCycle;
     }
 	
 	// Update is called once per frame
@@ -24,7 +55,7 @@ public class ReserveInteractAction : MonoBehaviour {
             if (BodyCollisions.Count == 0)
             {
                 Debug.Log("startINvoke");
-                InvokeRepeating("AddPlayerEnergy", 0, 2);
+                InvokeRepeating("AddPlayerEnergy", 0, _cycle);
             }
             BodyCollisions.Add(collision);
         }
@@ -43,7 +74,7 @@ public class ReserveInteractAction : MonoBehaviour {
         foreach (Collider2D C in BodyCollisions)
         {
             ColliderController ctrl = C.gameObject.GetComponent<ColliderController>();
-            ctrl.Info.GetComponent<StateBar>().RestoreEnergy(10);
+            ctrl.Info.GetComponent<StateBar>().RestoreEnergy(_addEnergyByCycle);
         }
     }
 }
