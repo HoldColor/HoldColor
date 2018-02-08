@@ -34,4 +34,12 @@ public class PlayerController : MonoBehaviour {
         statebar.CurrentEnergy = 10;
         statebar.CurrentHealth = 100;
     }
+
+    private void Update()
+    {
+        if (Info.GetComponent<StateBar>().CurrentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

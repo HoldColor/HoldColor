@@ -21,11 +21,10 @@ namespace HoldColor.Config {
     static class PlayerConfig
     {
         public static float _MoveSpeed = 0.5f;
-        public static float _InteractRadius = 10f;
         public static float _FiringRate = 1.0f;
         public static int _Damage = 5;
         public static float _BulletSpeed = 3.0f;
-        public static float _InteractAreaRadius = 8.0f;
+        public static float _InteractAreaRadius = 5.0f;
         public static int _TotalHealth = 300;
         public static int _TotalEnergy = 100;
     }
@@ -52,9 +51,10 @@ namespace HoldColor.Config {
     static class TurretConfig
     {
         public static float _FiringRate = 1.5f;
-        public static int _Damage = 15;
+        public static int _Damage = 100;
         public static float _BulletSpeed = 3.0f;
         public static int _TotalHealth = 1000;
         public static int _TotalEnergy = 1000;
+        public static float _InteractAreaRadius = 15f;
     }
 }

@@ -102,13 +102,14 @@ public class StateBar : MonoBehaviour {
     }
     public void ConsumeHealth (int value)
     {
-        if (_CurrentHealth > value)
+        if (_CurrentHealth >= value)
         {
             _CurrentHealth -= value;
             RefreshHealthInfo();
         } else
         {
-            // DIE
+            _CurrentHealth = 0;
+            RefreshHealthInfo();
         }
     }
 
