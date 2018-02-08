@@ -7,9 +7,23 @@ public class PlayerInteractAction : MonoBehaviour {
     private GameObject Bullet;
     private Collider2D Target;
     private PlayerController OwnController;
+    private InteractController interactController;
     private float _firingRate;
     private int _damage;
     private float _bulletSpeed;
+    private float _interactAreaRadius;
+    public float InteractAreaRadius
+    {
+        get
+        {
+            return _interactAreaRadius;
+        }
+        set
+        {
+            _interactAreaRadius = value;
+            interactController.InteractRadius = value;
+        }
+    }
     public float BulletSpeed
     {
         get
@@ -49,13 +63,16 @@ public class PlayerInteractAction : MonoBehaviour {
         }
     }
     // Use this for initialization
-    void Awake()
+    void Start()
     {
         Bullet = Resources.Load<GameObject>("Prefabs/Bullet");
         OwnController = gameObject.GetComponentInParent<PlayerController>();
         _firingRate = PlayerConfig._FiringRate;
         _damage = PlayerConfig._Damage;
         _bulletSpeed = PlayerConfig._BulletSpeed;
+        _interactAreaRadius = PlayerConfig._InteractAreaRadius;
+        interactController = gameObject.GetComponentInParent<InteractController>();
+        interactController.InteractRadius = _interactAreaRadius;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

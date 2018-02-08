@@ -25,18 +25,28 @@ namespace HoldColor.Config {
         public static float _FiringRate = 1.0f;
         public static int _Damage = 5;
         public static float _BulletSpeed = 3.0f;
+        public static float _InteractAreaRadius = 8.0f;
+        public static int _TotalHealth = 300;
+        public static int _TotalEnergy = 100;
     }
 
-    static class ResourceConfig
+    static class HingeConfig
     {
         public static int _AddResourceByCycle = 4;
         public static float _AddResourceCycle = 2.0f;
+        public static int _AddHealthBySecond = 10;
+        public static float _InteractAreaRadius = 10.0f;
+        public static int _TotalHealth = 3000;
+        public static int _TotalEnergy = 1000;
     }
 
     static class ReserveConfig
     {
         public static int _AddEnergyByCycle = 10;
         public static float _AddEnergyCycle = 1.0f;
+        public static float _InteractAreaRadius = 10.0f;
+        public static int _TotalHealth = 500;
+        public static int _TotalEnergy = 1000;
     }
 
     static class TurretConfig
@@ -44,5 +54,7 @@ namespace HoldColor.Config {
         public static float _FiringRate = 1.5f;
         public static int _Damage = 15;
         public static float _BulletSpeed = 3.0f;
+        public static int _TotalHealth = 1000;
+        public static int _TotalEnergy = 1000;
     }
 }

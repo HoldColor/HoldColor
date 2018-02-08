@@ -24,15 +24,14 @@ public class PlayerController : MonoBehaviour {
         _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
         Interact.GetComponent<InteractController>().InteractAreaColor = _camp;
-        Interact.GetComponent<InteractController>().InteractRadius = 5f;
         Interact.GetComponent<InteractController>().InteractCollider.GetComponent<ColliderController>().Camp = _camp;
         BodyCollider.GetComponent<ColliderController>().Camp = _camp;
         StateBar statebar = Info.GetComponent<StateBar>();
-        _health = 300;
-        _energy = 100;
+        _health = PlayerConfig._TotalHealth;
+        _energy = PlayerConfig._TotalEnergy;
         statebar.TotalHealth = _health;
         statebar.TotalEnergy = _energy;
         statebar.CurrentEnergy = 10;
-        statebar.CurrentHealth = _health;
+        statebar.CurrentHealth = 100;
     }
 }

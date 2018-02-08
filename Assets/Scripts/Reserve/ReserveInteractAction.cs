@@ -8,6 +8,20 @@ public class ReserveInteractAction : MonoBehaviour {
     private List<Collider2D> BodyCollisions;
     private int _addEnergyByCycle;
     private float _cycle;
+    private InteractController interactController;
+    private float _interactAreaRadius;
+    public float InteractAreaRadius
+    {
+        get
+        {
+            return _interactAreaRadius;
+        }
+        set
+        {
+            _interactAreaRadius = value;
+            interactController.InteractRadius = value;
+        }
+    }
     public int AddResourceByCycle
     {
         get
@@ -40,6 +54,9 @@ public class ReserveInteractAction : MonoBehaviour {
         BodyCollisions = new List<Collider2D>();
         _addEnergyByCycle = ReserveConfig._AddEnergyByCycle;
         _cycle = ReserveConfig._AddEnergyCycle;
+        _interactAreaRadius = ReserveConfig._InteractAreaRadius;
+        interactController = gameObject.GetComponentInParent<InteractController>();
+        interactController.InteractRadius = _interactAreaRadius;
     }
 	
 	// Update is called once per frame

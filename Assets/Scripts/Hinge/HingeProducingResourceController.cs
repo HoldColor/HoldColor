@@ -42,8 +42,8 @@ public class HingeProducingResourceController : MonoBehaviour {
         ResourceValueUI = gameObject.GetComponent<Text>();
         animator = gameObject.GetComponent<Animator>();
         animator.SetBool("Start", true);
-        _resourceByCycle = ResourceConfig._AddResourceByCycle;
-        _cycle = ResourceConfig._AddResourceCycle;
+        _resourceByCycle = HingeConfig._AddResourceByCycle;
+        _cycle = HingeConfig._AddResourceCycle;
         ResourceValueUI.text = "Resource +" + _resourceByCycle;
         float ProductingSpeed = _cycle;
         animator.SetFloat("ProductingSpeed", ProductingSpeed);
