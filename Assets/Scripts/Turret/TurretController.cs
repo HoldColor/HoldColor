@@ -11,7 +11,6 @@ public class TurretController : MonoBehaviour {
     private int _health;
     private int _energy;
     private Color _camp;
-    private float _interactRadius;
     public Color Camp
     {
         get

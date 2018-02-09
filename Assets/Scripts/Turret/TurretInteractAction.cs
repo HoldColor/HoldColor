@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using HoldColor.Config;
 
-public class TurretInteractController : MonoBehaviour {
+public class TurretInteractAction: MonoBehaviour {
 
     private GameObject Bullet;
     private List<Collider2D> Targets;

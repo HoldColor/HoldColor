@@ -22,7 +22,7 @@ public class ReserveInteractAction : MonoBehaviour {
             interactController.InteractRadius = value;
         }
     }
-    public int AddResourceByCycle
+    public int AddEnergyByCycle
     {
         get
         {
