@@ -33,6 +33,8 @@ public class ReserveController : MonoBehaviour {
         statebar.TotalEnergy = _energy;
         statebar.CurrentEnergy = _energy;
         statebar.CurrentHealth = _health;
+
+        GameObject.Find("Collector").GetComponent<Collector>().Reserve.Add(gameObject);
     }
 
     private void Update()

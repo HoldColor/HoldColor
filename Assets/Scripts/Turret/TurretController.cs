@@ -33,5 +33,7 @@ public class TurretController : MonoBehaviour {
         statebar.TotalEnergy = _energy;
         statebar.CurrentEnergy = _energy;
         statebar.CurrentHealth = _health;
+
+        GameObject.Find("Collector").GetComponent<Collector>().Turret.Add(gameObject);
     }
 }
