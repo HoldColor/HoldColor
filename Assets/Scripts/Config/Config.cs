@@ -63,5 +63,6 @@ namespace HoldColor.Config {
     {
         public static int _TotalValue = 200;
         public static int _OccupyPointBySecond = 10;
+        public static float _InteractAreaRadius = 10f;
     }
 }

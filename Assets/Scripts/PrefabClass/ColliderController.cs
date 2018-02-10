@@ -7,7 +7,8 @@ public class ColliderController : MonoBehaviour {
     {
         BodyCollider,
         InteractCollider,
-        BulletCollider
+        BulletCollider,
+        SFBodyCollider
     }
     public ColliderType Type;
     public GameObject GameBody;
