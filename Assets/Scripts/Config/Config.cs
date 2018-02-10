@@ -17,14 +17,14 @@ namespace HoldColor.Config {
         public static Color Campless = new Color(117f / 255f, 117f / 255f, 117f / 255f);
     }
     static class CameraConfig {
-        public static float _MoveSpeed = 0.1f;
+        public static float _MoveSpeed = 5.0f;
     }
     static class PlayerConfig
     {
-        public static float _MoveSpeed = 0.5f;
+        public static float _MoveSpeed = 3.0f;
         public static float _FiringRate = 1.0f;
         public static int _Damage = 50;
-        public static float _BulletSpeed = 3.0f;
+        public static float _BulletSpeed = 5.0f;
         public static float _InteractAreaRadius = 5.0f;
         public static int _TotalHealth = 300;
         public static int _TotalEnergy = 100;
@@ -53,7 +53,7 @@ namespace HoldColor.Config {
     {
         public static float _FiringRate = 1.5f;
         public static int _Damage = 100;
-        public static float _BulletSpeed = 3.0f;
+        public static float _BulletSpeed = 4.0f;
         public static int _TotalHealth = 1000;
         public static int _TotalEnergy = 1000;
         public static float _InteractAreaRadius = 15f;

@@ -53,7 +53,7 @@ public class BulletController : MonoBehaviour {
     {
         isHit = false;
         target = null;
-        _speed = 3.0f;
+        _speed = 8.0f;
         _damage = 5;
     }
 
