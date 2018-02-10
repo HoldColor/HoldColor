@@ -18,7 +18,7 @@ public class OccupyBarController : MonoBehaviour {
         CurrentValue = 0;
         NowCamp = CampDefine.Campless;
         gameObject.transform.Find("bar/Background").GetComponent<Image>().color = CampDefine.Campless;
-        Fill = gameObject.transform.Find("bar/FillArea/Fill").GetComponent<Image>();
+        Fill = gameObject.transform.Find("bar/Fill Area/Fill").GetComponent<Image>();
 	}
 	
 	public bool Occupy(int point, Color camp)
@@ -31,6 +31,7 @@ public class OccupyBarController : MonoBehaviour {
             {
                 CurrentValue = TotalValue;
                 RefreshInfo();
+                gameObject.GetComponentInParent<SFController>().GameBody.GetComponent<SpriteRenderer>().color = camp;
                 return true;
             } else
             {
@@ -44,6 +45,7 @@ public class OccupyBarController : MonoBehaviour {
             {
                 CurrentValue = 0;
                 RefreshInfo();
+                gameObject.GetComponentInParent<SFController>().GameBody.GetComponent<SpriteRenderer>().color = CampDefine.Campless;
                 NowCamp = camp;
                 Fill.color = camp;
                 return false;
