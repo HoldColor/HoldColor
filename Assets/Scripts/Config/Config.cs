@@ -14,6 +14,7 @@ namespace HoldColor.Config {
         public static Color Blue = new Color(79f / 255f, 195f / 255f, 247f / 255f);
         public static Color Green = new Color(129f / 255f, 199f / 255f, 132f / 255f);
         public static Color Purple = new Color(149f / 255f, 177f / 255f, 205f / 255f);
+        public static Color Campless = new Color(117f / 255f, 117f / 255f, 117f / 255f);
     }
     static class CameraConfig {
         public static float _MoveSpeed = 0.1f;
@@ -56,5 +57,11 @@ namespace HoldColor.Config {
         public static int _TotalHealth = 1000;
         public static int _TotalEnergy = 1000;
         public static float _InteractAreaRadius = 15f;
+    }
+
+    static class SFConfig
+    {
+        public static int _TotalValue = 200;
+        public static int _OccupyPointBySecond = 10;
     }
 }
