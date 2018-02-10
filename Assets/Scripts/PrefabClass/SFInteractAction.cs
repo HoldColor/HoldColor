@@ -38,7 +38,7 @@ public class SFInteractAction : MonoBehaviour {
             if (BodyCollisions.Count == 0)
             {
                 BodyCollisions.Add(collision);
-                InvokeRepeating("Occupy", 0, 1);
+                InvokeRepeating("Occupy", 0, 0.1f);
             } else
             {
                 BodyCollisions.Add(collision);
@@ -66,7 +66,7 @@ public class SFInteractAction : MonoBehaviour {
         {
             if (c.gameObject.GetComponent<ColliderController>().Camp != targetCamp) return;
         }
-        OwnController.Info.GetComponent<OccupyBarController>().Occupy(SFConfig._OccupyPointBySecond * BodyCollisions.Count, targetCamp);
+        OwnController.Info.GetComponent<OccupyBarController>().Occupy(SFConfig._OccupyPointBySecond * BodyCollisions.Count / 10, targetCamp);
     }
 
 }

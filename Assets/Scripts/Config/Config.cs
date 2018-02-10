@@ -23,7 +23,7 @@ namespace HoldColor.Config {
     {
         public static float _MoveSpeed = 0.5f;
         public static float _FiringRate = 1.0f;
-        public static int _Damage = 5;
+        public static int _Damage = 50;
         public static float _BulletSpeed = 3.0f;
         public static float _InteractAreaRadius = 5.0f;
         public static int _TotalHealth = 300;

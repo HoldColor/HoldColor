@@ -100,7 +100,7 @@ public class PlayerInteractAction : MonoBehaviour {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation);
             bullet.GetComponent<BulletController>().Damage = _damage;
             bullet.GetComponent<BulletController>().Speed = _bulletSpeed;
-            OwnController.Info.GetComponent<StateBar>().ConsumeEnergy(10);
+            //OwnController.Info.GetComponent<StateBar>().ConsumeEnergy(10);
             BulletController bulletController = bullet.GetComponent<BulletController>();
             bulletController.target = Target.GetComponent<ColliderController>().GameBody;
             bulletController.targetCollider = Target;

@@ -34,4 +34,12 @@ public class ReserveController : MonoBehaviour {
         statebar.CurrentEnergy = _energy;
         statebar.CurrentHealth = _health;
     }
+
+    private void Update()
+    {
+        if (Info.GetComponent<StateBar>().CurrentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
