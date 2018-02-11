@@ -25,13 +25,13 @@ public class OccupyBarController : MonoBehaviour {
     {
        if (NowCamp == CampDefine.Campless || NowCamp == camp)
         {
-            NowCamp = camp;
             Fill.color = camp;
             if (CurrentValue + point >= TotalValue)
             {
                 CurrentValue = TotalValue;
                 RefreshInfo();
-                gameObject.GetComponentInParent<SFController>().GameBody.GetComponent<SpriteRenderer>().color = camp;
+                NowCamp = camp;
+                gameObject.GetComponentInParent<SFController>().Camp = camp;
                 return true;
             } else
             {
@@ -45,8 +45,8 @@ public class OccupyBarController : MonoBehaviour {
             {
                 CurrentValue = 0;
                 RefreshInfo();
-                gameObject.GetComponentInParent<SFController>().GameBody.GetComponent<SpriteRenderer>().color = CampDefine.Campless;
-                NowCamp = camp;
+                gameObject.GetComponentInParent<SFController>().Camp = CampDefine.Campless;
+                NowCamp = CampDefine.Campless;
                 Fill.color = camp;
                 return false;
             } else

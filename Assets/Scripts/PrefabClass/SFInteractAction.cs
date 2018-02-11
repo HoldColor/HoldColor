@@ -5,9 +5,10 @@ using HoldColor.Config;
 
 public class SFInteractAction : MonoBehaviour {
     private SFController OwnController;
-    private List<Collider2D> BodyCollisions;
+    public List<Collider2D> BodyCollisions;
     private InteractController interactController;
     private float _interactAreaRadius;
+    private Color TargetCamp;
     public float InteractAreaRadius
     {
         get
@@ -29,20 +30,32 @@ public class SFInteractAction : MonoBehaviour {
         interactController.InteractRadius = _interactAreaRadius;
     }
 
+    private void Update()
+    {
+        if (BodyCollisions.Count == 0)
+        {
+            CancelInvoke();
+        }
+        else
+        {
+            TargetCamp = BodyCollisions[0].gameObject.GetComponent<ColliderController>().Camp;
+            foreach (Collider2D c in BodyCollisions)
+            {
+                if (c.gameObject.GetComponent<ColliderController>().Camp != TargetCamp)
+                {
+                    CancelInvoke();
+                }
+                else if (!IsInvoking() && OwnController.Info.GetComponent<OccupyBarController>().NowCamp != TargetCamp) InvokeRepeating("Occupy", 0, 0.1f);
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
         if (colliderController.Type == ColliderController.ColliderType.BodyCollider && collision.gameObject != OwnController.BodyCollider)
         {
-            Debug.Log(collision.gameObject.tag);
-            if (BodyCollisions.Count == 0)
-            {
-                BodyCollisions.Add(collision);
-                InvokeRepeating("Occupy", 0, 0.1f);
-            } else
-            {
-                BodyCollisions.Add(collision);
-            }
+            BodyCollisions.Add(collision);
         }
     }
 
@@ -60,13 +73,10 @@ public class SFInteractAction : MonoBehaviour {
 
     private void Occupy()
     {
-        if (BodyCollisions.Count == 0) return;
-        Color targetCamp = BodyCollisions[0].gameObject.GetComponent<ColliderController>().Camp;
-        foreach (Collider2D c in BodyCollisions)
+        if (OwnController.Info.GetComponent<OccupyBarController>().Occupy(SFConfig._OccupyPointBySecond * BodyCollisions.Count / 10, TargetCamp))
         {
-            if (c.gameObject.GetComponent<ColliderController>().Camp != targetCamp) return;
+            CancelInvoke();
         }
-        OwnController.Info.GetComponent<OccupyBarController>().Occupy(SFConfig._OccupyPointBySecond * BodyCollisions.Count / 10, targetCamp);
     }
 
 }

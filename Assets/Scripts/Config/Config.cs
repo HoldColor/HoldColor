@@ -56,7 +56,7 @@ namespace HoldColor.Config {
         public static float _BulletSpeed = 4.0f;
         public static int _TotalHealth = 1000;
         public static int _TotalEnergy = 1000;
-        public static float _InteractAreaRadius = 15f;
+        public static float _InteractAreaRadius = 3f;
     }
 
     static class SFConfig
@@ -64,5 +64,11 @@ namespace HoldColor.Config {
         public static int _TotalValue = 200;
         public static int _OccupyPointBySecond = 10;
         public static float _InteractAreaRadius = 10f;
+    }
+
+    static class ShieldSF
+    {
+        public static int _TotalShield = 200;
+        public static int _RestoreShieldBySecond = 10;
     }
 }

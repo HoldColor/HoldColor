@@ -2,17 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HoldColor.Config;
 
 public class StateBar : MonoBehaviour {
-
+    private bool _isShield;
     private Slider HealthBar;
     private Slider EnergyBar;
+    private Slider Shield;
     private Text HealthInfo;
     private Text EnergyInfo;
+    private Text ShieldInfo;
     private int _CurrentHealth;
     private int _CurrentEnergy;
     private int _TotalHealth;
     private int _TotalEnergy;
+    private int _TotalShield;
+    private int _CurrentShield;
+    public bool IsShield
+    {
+        get
+        {
+            return _isShield;
+        }
+        set
+        {
+            _isShield = value;
+            if (value)
+            {
+                Shield.gameObject.SetActive(true);
+                ShieldInfo.gameObject.SetActive(true);
+            } else
+            {
+                Shield.gameObject.SetActive(false);
+                ShieldInfo.gameObject.SetActive(false);
+            }
+        }
+    }
+    public int CurrentShield
+    {
+        get
+        {
+            return _CurrentShield;
+        }
+        set
+        {
+            _CurrentShield = value;
+            RefreshShieldInfo();
+        }
+    }
+    public int TotalShield
+    {
+        get
+        {
+            return _TotalShield;
+        }
+        set
+        {
+            _TotalShield = value;
+            RefreshShieldInfo();
+        }
+    }
     public int CurrentHealth
     {
         get
@@ -67,16 +116,25 @@ public class StateBar : MonoBehaviour {
     {
         HealthBar = transform.Find("Health").GetComponent<Slider>();
         EnergyBar = transform.Find("Energy").GetComponent<Slider>();
+        Shield = transform.Find("Shield").GetComponent<Slider>();
         HealthInfo = transform.Find("HealthInfo").GetComponent<Text>();
         EnergyInfo = transform.Find("EnergyInfo").GetComponent<Text>();
+        ShieldInfo = transform.Find("ShieldInfo").GetComponent<Text>();
+        _isShield = false;
+        Shield.gameObject.SetActive(false);
+        ShieldInfo.gameObject.SetActive(false);
         _TotalEnergy = 50;
         _TotalHealth = 200;
+        _TotalShield = ShieldSF._TotalShield;
         _CurrentEnergy = _TotalEnergy;
         _CurrentHealth = _TotalHealth;
+        _CurrentShield = 0;
+        Shield.value = 0;
         HealthBar.value = ((float)_CurrentHealth / (float)_TotalHealth);
         HealthInfo.text = _CurrentHealth + "/" + _TotalHealth;
         EnergyInfo.text = _CurrentEnergy + "/" + _TotalEnergy;
         EnergyBar.value = ((float)_CurrentEnergy / (float)_TotalEnergy);
+        ShieldInfo.text = _CurrentShield.ToString();
     }
     private void RefreshHealthInfo()
     {
@@ -87,6 +145,11 @@ public class StateBar : MonoBehaviour {
     {
         EnergyInfo.text = _CurrentEnergy + "/" + _TotalEnergy;
         EnergyBar.value = ((float)_CurrentEnergy / (float)_TotalEnergy);
+    }
+    private void RefreshShieldInfo()
+    {
+        Shield.value = ((float)_CurrentShield / (float)_TotalShield);
+        ShieldInfo.text = _CurrentShield.ToString();
     }
     public void RestoreHealth (int value)
     {
@@ -102,14 +165,43 @@ public class StateBar : MonoBehaviour {
     }
     public void ConsumeHealth (int value)
     {
-        if (_CurrentHealth >= value)
+        if (IsShield)
         {
-            _CurrentHealth -= value;
-            RefreshHealthInfo();
+            if (_CurrentShield > value)
+            {
+                _CurrentShield -= value;
+                RefreshShieldInfo();
+            }
+            else
+            {
+                if (_CurrentHealth >= (value - _CurrentShield))
+                {
+                    _CurrentHealth -= (value - _CurrentShield);
+                    RefreshHealthInfo();
+                }
+                else
+                {
+                    _CurrentHealth = 0;
+                    RefreshHealthInfo();
+                }
+                _CurrentShield = 0;
+                RefreshShieldInfo();
+                Shield.gameObject.SetActive(false);
+                ShieldInfo.gameObject.SetActive(false);
+                IsShield = false;
+            }
         } else
         {
-            _CurrentHealth = 0;
-            RefreshHealthInfo();
+            if (_CurrentHealth >= value)
+            {
+                _CurrentHealth -= value;
+                RefreshHealthInfo();
+            }
+            else
+            {
+                _CurrentHealth = 0;
+                RefreshHealthInfo();
+            }
         }
     }
 
@@ -135,6 +227,19 @@ public class StateBar : MonoBehaviour {
         {
             _CurrentEnergy = 0;
             RefreshEnergyInfo();
+        }
+    }
+    public void RestoreShield(int value)
+    {
+        if (_TotalShield - _CurrentShield >= value)
+        {
+            _CurrentShield += value;
+            RefreshShieldInfo();
+        }
+        else
+        {
+            _CurrentShield = _TotalShield;
+            RefreshShieldInfo();
         }
     }
 }
