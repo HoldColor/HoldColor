@@ -6,7 +6,9 @@ using HoldColor.Config;
 public class SFController : MonoBehaviour {
     public enum SFType
     {
-        Shield
+        Shield,
+        Resource,
+        Attack
     }
     public GameObject GameBody;
     public GameObject Info;
@@ -25,12 +27,28 @@ public class SFController : MonoBehaviour {
             _camp = value;
             GameBody.GetComponent<SpriteRenderer>().color = value;
             BodyCollider.GetComponent<ColliderController>().Camp = value;
-            if (value != CampDefine.Campless)
+            switch (type)
             {
-                InvokeRepeating("StartBuff", 0, 1.0f);
-            } else
-            {
-                CancelInvoke();
+                case SFType.Shield:
+                    if (value != CampDefine.Campless)
+                    {
+                        InvokeRepeating("StartShieldBuff", 0, 1.0f);
+                    }
+                    else
+                    {
+                        CancelInvoke();
+                    }
+                    break;
+                case SFType.Resource:
+                    if (value != CampDefine.Campless)
+                    {
+                        StartResourceBuff();
+                    }
+                    else
+                    {
+                        CloseResourceBuff();
+                    }
+                    break;
             }
         }
     }
@@ -39,14 +57,24 @@ public class SFController : MonoBehaviour {
         _camp = CampDefine.Campless;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
         BodyCollider.GetComponent<ColliderController>().Camp = _camp;
+        Interact.GetComponent<InteractController>().InteractArea.SetActive(false);
 	}
 	
-	public void StartBuff()
+	public void StartShieldBuff()
     {
-        if (type == SFType.Shield)
-        {
-            ShieldBuff controller = gameObject.GetComponent<ShieldBuff>();
-            controller.RestoreShield();
-        }
+        ShieldBuff controller = gameObject.GetComponent<ShieldBuff>();
+        controller.RestoreShield();
+    }
+
+    public void StartResourceBuff()
+    {
+        ResourceBuff controller = gameObject.GetComponent<ResourceBuff>();
+        controller.AddResource();
+    }
+
+    public void CloseResourceBuff()
+    {
+        ResourceBuff controller = gameObject.GetComponent<ResourceBuff>();
+        controller.CloseBuff();
     }
 }

@@ -7,9 +7,9 @@ using HoldColor.Config;
 public class HingeProducingResourceController : MonoBehaviour {
 
     private Animator animator;
+    private AddResource addResource;
     private Text ResourceValueUI;
     private int _resourceByCycle;
-    private AnimationClip ProducingClip;
     private float _cycle;
     public int ResourceByCycle
     {
@@ -21,6 +21,7 @@ public class HingeProducingResourceController : MonoBehaviour {
         {
             _resourceByCycle = value;
             ResourceValueUI.text = "Resource +" + _resourceByCycle;
+            addResource.resource = value;
         }
     }
     public float Cycle
@@ -41,27 +42,26 @@ public class HingeProducingResourceController : MonoBehaviour {
     void Awake() {
         ResourceValueUI = gameObject.GetComponent<Text>();
         animator = gameObject.GetComponent<Animator>();
-        animator.SetBool("Start", true);
+        addResource = animator.GetBehaviour<AddResource>();
+        animator.SetBool("IsStart", false);
         _resourceByCycle = HingeConfig._AddResourceByCycle;
         _cycle = HingeConfig._AddResourceCycle;
+        addResource.resource = _resourceByCycle;
         ResourceValueUI.text = "Resource +" + _resourceByCycle;
-        float ProductingSpeed = _cycle;
+        ResourceValueUI.enabled = false;
+        float ProductingSpeed = 1 / _cycle;
         animator.SetFloat("ProductingSpeed", ProductingSpeed);
-        for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++)
-        {
-            if (animator.runtimeAnimatorController.animationClips[i].name == "HingeProducing")
-            {
-                ProducingClip = animator.runtimeAnimatorController.animationClips[i];
-            }
-        }
-        AnimationEvent evt = new AnimationEvent();
-        evt.time = 0;
-        evt.functionName = "AddResource";
-        ProducingClip.AddEvent(evt);
     }
 
-    void AddResource()
+    public void StartAnimation()
     {
-        ResourceController.instance.PlayerResources += _resourceByCycle;
+        ResourceValueUI.enabled = true;
+        animator.SetBool("IsStart", true);
+    }
+
+    public void StopAnimation()
+    {
+        ResourceValueUI.enabled = false;
+        animator.SetBool("IsStart", false);
     }
 }

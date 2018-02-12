@@ -26,6 +26,7 @@ public class ShieldBuff : MonoBehaviour {
                 } else
                 {
                     cc.Info.GetComponent<StateBar>().IsShield = true;
+                    cc.Info.GetComponent<StateBar>().RestoreShield(ShieldSF._RestoreShieldBySecond);
                 }
             }
         }

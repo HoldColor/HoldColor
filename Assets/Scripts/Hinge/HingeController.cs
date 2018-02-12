@@ -34,5 +34,6 @@ public class HingeController : MonoBehaviour {
         statebar.TotalEnergy = _energy;
         statebar.CurrentEnergy = _energy;
         statebar.CurrentHealth = _health;
+        ResourceUI.GetComponent<HingeProducingResourceController>().StartAnimation();
     }
 }

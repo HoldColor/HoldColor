@@ -63,12 +63,18 @@ namespace HoldColor.Config {
     {
         public static int _TotalValue = 200;
         public static int _OccupyPointBySecond = 10;
-        public static float _InteractAreaRadius = 10f;
+        public static float _InteractAreaRadius = 5.0f;
     }
 
     static class ShieldSF
     {
         public static int _TotalShield = 200;
         public static int _RestoreShieldBySecond = 10;
+    }
+
+    static class ResourceSF
+    {
+        public static int _AddResourceByCycle = 2;
+        public static float _AddResourceCycle = 1.0f;
     }
 }
