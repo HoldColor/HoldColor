@@ -77,4 +77,10 @@ namespace HoldColor.Config {
         public static int _AddResourceByCycle = 2;
         public static float _AddResourceCycle = 1.0f;
     }
+
+    static class AttackSF
+    {
+        public static int _ImproveDamage = 2;
+        public static float _ImproveInteractRadius = 0.2f;
+    }
 }

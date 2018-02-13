@@ -20,8 +20,7 @@ public class TurretController : MonoBehaviour {
     }
     private void Start()
     {
-        // _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
-        _camp = CampDefine.Purple;
+        _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         GameBody.GetComponent<SpriteRenderer>().color = _camp;
         Interact.GetComponent<InteractController>().InteractAreaColor = _camp;
         Interact.GetComponent<InteractController>().InteractCollider.GetComponent<ColliderController>().Camp = _camp;

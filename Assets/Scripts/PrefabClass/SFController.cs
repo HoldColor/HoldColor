@@ -49,6 +49,16 @@ public class SFController : MonoBehaviour {
                         CloseResourceBuff();
                     }
                     break;
+                case SFType.Attack:
+                    if (value != CampDefine.Campless)
+                    {
+                        StartAttackBuff();
+                    }
+                    else
+                    {
+                        StopAttackBuff();
+                    }
+                    break;
             }
         }
     }
@@ -76,5 +86,17 @@ public class SFController : MonoBehaviour {
     {
         ResourceBuff controller = gameObject.GetComponent<ResourceBuff>();
         controller.CloseBuff();
+    }
+
+    public void StartAttackBuff()
+    {
+        AttackBuff controller = gameObject.GetComponent<AttackBuff>();
+        controller.StartAttackBuff();
+    }
+
+    public void StopAttackBuff()
+    {
+        AttackBuff controller = gameObject.GetComponent<AttackBuff>();
+        controller.StopAttackBuff();
     }
 }
