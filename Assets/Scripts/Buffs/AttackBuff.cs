@@ -28,12 +28,12 @@ public class AttackBuff : MonoBehaviour {
     public void StopAttackBuff()
     {
         Collector collector = GameObject.Find("Collector").GetComponent<Collector>();
-        PlayerInteractAction PIA = collector.Player.GetComponent<PlayerController>().Interact.GetComponent<PlayerInteractAction>();
+        PlayerInteractAction PIA = collector.Player.GetComponent<PlayerController>().Interact.GetComponentInChildren<PlayerInteractAction>();
         PIA.Damage = PlayerConfig._Damage;
         PIA.InteractAreaRadius = PlayerConfig._InteractAreaRadius;
         foreach (GameObject Turret in collector.Turret)
         {
-            TurretInteractAction TIA = Turret.GetComponent<TurretController>().Interact.GetComponent<TurretInteractAction>();
+            TurretInteractAction TIA = Turret.GetComponent<TurretController>().Interact.GetComponentInChildren<TurretInteractAction>();
             TIA.Damage = TurretConfig._Damage;
             TIA.InteractAreaRadius = TurretConfig._InteractAreaRadius;
         }
