@@ -26,7 +26,8 @@ public class TurretBuildTipController : MonoBehaviour {
         {
             if (IsBuildAbled)
             {
-                Debug.Log("build");
+                GameObject Turret = Resources.Load<GameObject>("Prefabs/Turret");
+                Instantiate(Turret, transform.position, transform.rotation);
                 TurretUIBTN.GetComponent<Button>().interactable = true;
                 Destroy(this.gameObject);
             }
