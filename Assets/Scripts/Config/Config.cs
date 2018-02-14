@@ -90,4 +90,10 @@ namespace HoldColor.Config {
         public static int _TotalHealth = 500;
         public static int _TotalEnergy = 500;
     }
+
+    static class UI
+    {
+        public static Color _BuildingDiasbled = new Color(229f / 255f, 57f / 255f, 53f / 255f, 200f / 255f);
+        public static Color _BuildingAbled = new Color(104 / 255f, 159 / 255f, 56 / 255f, 200 / 255f);
+    }
 }
