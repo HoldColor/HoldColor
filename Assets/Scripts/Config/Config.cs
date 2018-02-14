@@ -83,4 +83,11 @@ namespace HoldColor.Config {
         public static int _ImproveDamage = 2;
         public static float _ImproveInteractRadius = 0.2f;
     }
+
+    static class Field
+    {
+        public static float _HalfLength = 3.0f;
+        public static int _TotalHealth = 500;
+        public static int _TotalEnergy = 500;
+    }
 }

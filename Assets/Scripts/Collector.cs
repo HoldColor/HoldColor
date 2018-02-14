@@ -7,13 +7,16 @@ public class Collector : MonoBehaviour {
     public GameObject Hinge;
     public List<GameObject> Reserve;
     public List<GameObject> Turret;
+    public List<GameObject> Field;
 	// Use this for initialization
 	private void Awake () {
         Player = GameObject.Find("Player");
         Hinge = GameObject.Find("Hinge");
         Reserve = new List<GameObject>();
         Turret = new List<GameObject>();
-	}
+        Field = new List<GameObject>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {

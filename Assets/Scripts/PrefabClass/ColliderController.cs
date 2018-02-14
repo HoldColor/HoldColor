@@ -8,7 +8,8 @@ public class ColliderController : MonoBehaviour {
         BodyCollider,
         InteractCollider,
         BulletCollider,
-        SFBodyCollider
+        SFBodyCollider,
+        FieldCollider
     }
     public ColliderType Type;
     public GameObject GameBody;
