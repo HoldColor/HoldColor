@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoldColor.Config;
 
 public class InteractController : MonoBehaviour {
     private LineRenderer linerenderer;
@@ -45,7 +46,7 @@ public class InteractController : MonoBehaviour {
 	private void Awake () {
         // AreaCircle
         linerenderer = InteractArea.GetComponent<LineRenderer>();
-        _interactAreaColor = Color.blue;
+        _interactAreaColor = CampDefine.Campless;
         _interactAreaWidth = 0.1f;
         _interactAreaCount = 100;
         _interactRadius = 10f;

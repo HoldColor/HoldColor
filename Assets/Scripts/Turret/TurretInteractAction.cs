@@ -113,14 +113,16 @@ public class TurretInteractAction: MonoBehaviour {
 
     private void Shoot()
     {
-        if (OwnController.Info.GetComponent<StateBar>().CurrentEnergy >= 10)
+        //if (OwnController.Info.GetComponent<StateBar>().CurrentEnergy >= 10)
+        //{
+        if (!OwnController.IsBuilding)
         {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation);
             bullet.GetComponent<BulletController>().Damage = _damage;
             bullet.GetComponent<BulletController>().Speed = _bulletSpeed;
             OwnController.Info.GetComponent<StateBar>().ConsumeEnergy(10);
             BulletController bulletController = bullet.GetComponent<BulletController>();
-            if(Target == null)
+            if (Target == null)
             {
                 Target = Targets[0];
             }
@@ -129,5 +131,6 @@ public class TurretInteractAction: MonoBehaviour {
             bulletController.isShoot = true;
             bulletController.Camp = OwnController.Camp;
         }
+        //}
     }
 }

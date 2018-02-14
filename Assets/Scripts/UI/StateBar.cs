@@ -12,12 +12,12 @@ public class StateBar : MonoBehaviour {
     private Text HealthInfo;
     private Text EnergyInfo;
     private Text ShieldInfo;
-    private int _CurrentHealth;
-    private int _CurrentEnergy;
-    private int _TotalHealth;
-    private int _TotalEnergy;
-    private int _TotalShield;
-    private int _CurrentShield;
+    private float _CurrentHealth;
+    private float _CurrentEnergy;
+    private float _TotalHealth;
+    private float _TotalEnergy;
+    private float _TotalShield;
+    private float _CurrentShield;
     public bool IsShield
     {
         get
@@ -38,7 +38,7 @@ public class StateBar : MonoBehaviour {
             }
         }
     }
-    public int CurrentShield
+    public float CurrentShield
     {
         get
         {
@@ -50,7 +50,7 @@ public class StateBar : MonoBehaviour {
             RefreshShieldInfo();
         }
     }
-    public int TotalShield
+    public float TotalShield
     {
         get
         {
@@ -62,7 +62,7 @@ public class StateBar : MonoBehaviour {
             RefreshShieldInfo();
         }
     }
-    public int CurrentHealth
+    public float CurrentHealth
     {
         get
         {
@@ -74,7 +74,7 @@ public class StateBar : MonoBehaviour {
             RefreshHealthInfo();
         }
     }
-    public int CurrentEnergy
+    public float CurrentEnergy
     {
         get
         {
@@ -86,7 +86,7 @@ public class StateBar : MonoBehaviour {
             RefreshEnergyInfo();
         }
     }
-    public int TotalHealth
+    public float TotalHealth
     {
         get
         {
@@ -98,7 +98,7 @@ public class StateBar : MonoBehaviour {
             RefreshHealthInfo();
         }
     }
-    public int TotalEnergy
+    public float TotalEnergy
     {
         get
         {
@@ -139,11 +139,11 @@ public class StateBar : MonoBehaviour {
     private void RefreshHealthInfo()
     {
         HealthBar.value = ((float)_CurrentHealth / (float)_TotalHealth);
-        HealthInfo.text = _CurrentHealth + "/" + _TotalHealth;
+        HealthInfo.text = (int)_CurrentHealth + "/" + (int)_TotalHealth;
     }
     private void RefreshEnergyInfo()
     {
-        EnergyInfo.text = _CurrentEnergy + "/" + _TotalEnergy;
+        EnergyInfo.text = (int)_CurrentEnergy + "/" + (int)_TotalEnergy;
         EnergyBar.value = ((float)_CurrentEnergy / (float)_TotalEnergy);
     }
     private void RefreshShieldInfo()
@@ -151,7 +151,7 @@ public class StateBar : MonoBehaviour {
         Shield.value = ((float)_CurrentShield / (float)_TotalShield);
         ShieldInfo.text = _CurrentShield.ToString();
     }
-    public void RestoreHealth (int value)
+    public void RestoreHealth (float value)
     {
         if (_TotalHealth - _CurrentHealth >= value)
         {
@@ -163,7 +163,7 @@ public class StateBar : MonoBehaviour {
             RefreshHealthInfo();
         }
     }
-    public void ConsumeHealth (int value)
+    public void ConsumeHealth (float value)
     {
         if (IsShield)
         {
@@ -205,7 +205,7 @@ public class StateBar : MonoBehaviour {
         }
     }
 
-    public void RestoreEnergy (int value)
+    public void RestoreEnergy (float value)
     {
         if (_TotalEnergy - _CurrentEnergy >= value)
         {
@@ -217,7 +217,7 @@ public class StateBar : MonoBehaviour {
             RefreshHealthInfo();
         }
     }
-    public void ConsumeEnergy (int value)
+    public void ConsumeEnergy (float value)
     {
         if (_CurrentEnergy > value)
         {
@@ -229,7 +229,7 @@ public class StateBar : MonoBehaviour {
             RefreshEnergyInfo();
         }
     }
-    public void RestoreShield(int value)
+    public void RestoreShield(float value)
     {
         if (_TotalShield - _CurrentShield >= value)
         {
