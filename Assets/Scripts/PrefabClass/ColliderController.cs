@@ -9,7 +9,9 @@ public class ColliderController : MonoBehaviour {
         InteractCollider,
         BulletCollider,
         SFBodyCollider,
-        FieldCollider
+        FieldCollider,
+        TurretBuildCollider,
+        FieldBuildCollider
     }
     public ColliderType Type;
     public GameObject GameBody;

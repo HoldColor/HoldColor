@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using HoldColor.Config;
 
-public class TurretBuildTipController : MonoBehaviour {
+public class FieldBuildTipController : MonoBehaviour {
+
     private float Radius;
     private bool isBuildAbled;
     public bool IsBuildAbled
@@ -18,16 +19,17 @@ public class TurretBuildTipController : MonoBehaviour {
             isBuildAbled = value;
         }
     }
-    public GameObject TurretUIBTN;
-	// Use this for initialization
-	void Start () {
-        Radius = TurretConfig._InteractAreaRadius;
+    public GameObject FieldUIBTN;
+    // Use this for initialization
+    void Start()
+    {
+        Radius = Field._HalfLength;
         gameObject.GetComponentInChildren<BuildAreaTip>().Radius = Radius;
-        gameObject.GetComponentInChildren<BuildAreaTip>().Type = BuildAreaTip.BuildType.Turret;
+        gameObject.GetComponentInChildren<BuildAreaTip>().Type = BuildAreaTip.BuildType.Field;
         gameObject.GetComponent<SpriteRenderer>().color = UI._BuildingDiasbled;
         IsBuildAbled = false;
-        TurretUIBTN = GameObject.Find("UI/BuildTurret");
-	}
+        FieldUIBTN = GameObject.Find("UI/BuildField");
+    }
     private void Update()
     {
         Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -37,10 +39,10 @@ public class TurretBuildTipController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             if (IsBuildAbled)
-            {
-                GameObject Turret = Resources.Load<GameObject>("Prefabs/Turret");
+            {   
+                GameObject Turret = Resources.Load<GameObject>("Prefabs/Field");
                 Instantiate(Turret, transform.position, transform.rotation);
-                TurretUIBTN.GetComponent<Button>().interactable = true;
+                FieldUIBTN.GetComponent<Button>().interactable = true;
                 Destroy(this.gameObject);
             }
             else
@@ -51,10 +53,8 @@ public class TurretBuildTipController : MonoBehaviour {
         if (Input.GetMouseButtonDown(1))
         {
             Debug.Log("cancle");
-            TurretUIBTN.GetComponent<Button>().interactable = true;
+            FieldUIBTN.GetComponent<Button>().interactable = true;
             Destroy(this.gameObject);
         }
     }
-
-    
 }

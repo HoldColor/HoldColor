@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildAreaTip : MonoBehaviour {
+    public enum BuildType
+    {
+        Turret,
+        Field
+    }
+    public BuildType Type;
     private LineRenderer linerenderer;
     private Color color;
     private float width;
@@ -36,12 +42,28 @@ public class BuildAreaTip : MonoBehaviour {
     private void Draw(int Count, float Radius)
     {
         float x, y;
-        linerenderer.positionCount = Count + 1;
-        for (int i = 0; i < Count + 1; i++)
+        switch (Type)
         {
-            x = Mathf.Sin((360f * i / Count) * Mathf.Deg2Rad) * Radius;
-            y = Mathf.Cos((360f * i / Count) * Mathf.Deg2Rad) * Radius;
-            linerenderer.SetPosition(i, new Vector3(x, y, 0));
+            case BuildType.Turret:
+                linerenderer.positionCount = Count + 1;
+                for (int i = 0; i < Count + 1; i++)
+                {
+                    x = Mathf.Sin((360f * i / Count) * Mathf.Deg2Rad) * Radius;
+                    y = Mathf.Cos((360f * i / Count) * Mathf.Deg2Rad) * Radius;
+                    linerenderer.SetPosition(i, new Vector3(x, y, 0));
+                }
+                break;
+            case BuildType.Field:
+                Count = 4;
+                linerenderer.positionCount = Count + 1;
+                for (int i = 0; i < Count + 1; i++)
+                {
+                    x = Mathf.Sin((45 + 360f * i / Count) * Mathf.Deg2Rad) * Radius * Mathf.Sqrt(2);
+                    y = Mathf.Cos((45 + 360f * i / Count) * Mathf.Deg2Rad) * Radius * Mathf.Sqrt(2);
+                    linerenderer.SetPosition(i, new Vector3(x, y, 0));
+                }
+                break;
         }
+        
     }
 }

@@ -31,6 +31,7 @@ public class FieldController : MonoBehaviour {
     {
         _camp = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
         // GameBody.GetComponent<SpriteRenderer>().color = _camp;
+        GameBody.GetComponent<SpriteRenderer>().color = CampDefine.Campless;
         FieldArea.GetComponent<FieldAreaController>().FieldAreaCollider.GetComponent<ColliderController>().Camp = _camp;
         BodyCollider.GetComponent<ColliderController>().Camp = _camp;
         StateBar statebar = Info.GetComponent<StateBar>();
