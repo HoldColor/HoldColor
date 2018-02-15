@@ -31,14 +31,6 @@ public class FieldAreaAction : MonoBehaviour {
 
     private void CanBuild(bool flag, ColliderController colliderController, Collider2D collision)
     {
-        if (flag)
-        {
-            collision.gameObject.GetComponent<SpriteRenderer>().color = UI._BuildingAbled;
-        }
-        else
-        {
-            collision.gameObject.GetComponent<SpriteRenderer>().color = UI._BuildingDiasbled;
-        }
         switch (colliderController.Type)
         {
             case ColliderController.ColliderType.TurretBuildCollider:

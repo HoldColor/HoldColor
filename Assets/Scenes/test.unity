@@ -1979,6 +1979,11 @@ Prefab:
       propertyPath: Info
       value: 
       objectReference: {fileID: 1360476164}
+    - target: {fileID: 114492968353668686, guid: f35ac319f7f7ebc428463ffa3e5bf1f9,
+        type: 2}
+      propertyPath: Type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f35ac319f7f7ebc428463ffa3e5bf1f9, type: 2}
   m_IsPrefabParent: 0

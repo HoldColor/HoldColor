@@ -20,6 +20,7 @@ public class FieldBuildTipController : MonoBehaviour {
         }
     }
     public GameObject FieldUIBTN;
+    private bool FinalBuildAbled;
     // Use this for initialization
     void Start()
     {
@@ -28,6 +29,7 @@ public class FieldBuildTipController : MonoBehaviour {
         gameObject.GetComponentInChildren<BuildAreaTip>().Type = BuildAreaTip.BuildType.Field;
         gameObject.GetComponent<SpriteRenderer>().color = UI._BuildingDiasbled;
         IsBuildAbled = false;
+        FinalBuildAbled = true;
         FieldUIBTN = GameObject.Find("UI/BuildField");
     }
     private void Update()
@@ -36,9 +38,18 @@ public class FieldBuildTipController : MonoBehaviour {
         target.z = 0;
         gameObject.transform.position = target;
 
+        if (FinalBuildAbled && isBuildAbled)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = UI._BuildingAbled;
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = UI._BuildingDiasbled;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
-            if (IsBuildAbled)
+            if (FinalBuildAbled && isBuildAbled)
             {   
                 GameObject Turret = Resources.Load<GameObject>("Prefabs/Field");
                 Instantiate(Turret, transform.position, transform.rotation);
@@ -55,6 +66,23 @@ public class FieldBuildTipController : MonoBehaviour {
             Debug.Log("cancle");
             FieldUIBTN.GetComponent<Button>().interactable = true;
             Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
+        if (colliderController.Type == ColliderController.ColliderType.BodyCollider)
+        {
+            FinalBuildAbled = false;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
+        if (colliderController.Type == ColliderController.ColliderType.BodyCollider)
+        {
+            FinalBuildAbled = true;
         }
     }
 }
