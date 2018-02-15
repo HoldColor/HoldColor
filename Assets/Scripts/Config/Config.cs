@@ -90,6 +90,7 @@ namespace HoldColor.Config {
         public static float _HalfLength = 3.0f;
         public static int _TotalHealth = 500;
         public static int _TotalEnergy = 500;
+        public static float _BuildingTime = 30.0f;
     }
 
     static class UI

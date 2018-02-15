@@ -47,7 +47,8 @@ public class TurretBuildTipController : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision)
     {
         ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
-        if (colliderController.Type == ColliderController.ColliderType.FieldCollider)
+        FieldController FC = collision.gameObject.GetComponentInParent<FieldController>();
+        if (colliderController.Type == ColliderController.ColliderType.FieldCollider && !FC.IsBuilding)
         {
             gameObject.GetComponent<SpriteRenderer>().color = UI._BuildingDiasbled;
             IsBuildAbled = false;
@@ -57,7 +58,8 @@ public class TurretBuildTipController : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D collision)
     {
         ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
-        if (colliderController.Type == ColliderController.ColliderType.FieldCollider)
+        FieldController FC = collision.gameObject.GetComponentInParent<FieldController>();
+        if (colliderController.Type == ColliderController.ColliderType.FieldCollider && !FC.IsBuilding)
         {
             gameObject.GetComponent<SpriteRenderer>().color = UI._BuildingAbled;
             IsBuildAbled = true;

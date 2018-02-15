@@ -7,7 +7,8 @@ using HoldColor.Config;
 public class BuildingBarController : MonoBehaviour {
     public enum BuildingType
     {
-        Turret
+        Turret,
+        Field
     }
     public float BuildTime
     {
@@ -48,6 +49,9 @@ public class BuildingBarController : MonoBehaviour {
         {
             case BuildingType.Turret:
                 OwnController = GetComponentInParent<TurretController>();
+                break;
+            case BuildingType.Field:
+                OwnController = GetComponentInParent<FieldController>();
                 break;
         }
     }
