@@ -85,6 +85,7 @@ public class ReserveInteractAction : MonoBehaviour {
     }
     private void AddPlayerEnergy()
     {
+        if (!OwnController.IsBuilding)
         foreach (Collider2D C in BodyCollisions)
         {
             ColliderController ctrl = C.gameObject.GetComponent<ColliderController>();

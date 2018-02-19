@@ -11,7 +11,8 @@ public class ColliderController : MonoBehaviour {
         SFBodyCollider,
         FieldCollider,
         TurretBuildCollider,
-        FieldBuildCollider
+        FieldBuildCollider,
+        ReserveBuildCollider
     }
     public ColliderType Type;
     public GameObject GameBody;

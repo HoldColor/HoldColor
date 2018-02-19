@@ -44,9 +44,10 @@ namespace HoldColor.Config {
     {
         public static int _AddEnergyByCycle = 10;
         public static float _AddEnergyCycle = 1.0f;
-        public static float _InteractAreaRadius = 10.0f;
+        public static float _InteractAreaRadius = 5.0f;
         public static int _TotalHealth = 500;
         public static int _TotalEnergy = 1000;
+        public static float _BuildingTime = 10.0f;
     }
 
     static class TurretConfig

@@ -8,7 +8,8 @@ public class BuildingBarController : MonoBehaviour {
     public enum BuildingType
     {
         Turret,
-        Field
+        Field,
+        Reserve
     }
     public float BuildTime
     {
@@ -52,6 +53,9 @@ public class BuildingBarController : MonoBehaviour {
                 break;
             case BuildingType.Field:
                 OwnController = GetComponentInParent<FieldController>();
+                break;
+            case BuildingType.Reserve:
+                OwnController = GetComponentInParent<ReserveController>();
                 break;
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FieldButtonController : MonoBehaviour {
+public class ReserveButtonController : MonoBehaviour {
 
     private Button BTN;
     private void Start()
@@ -14,8 +14,8 @@ public class FieldButtonController : MonoBehaviour {
 
     private void StartTurretBuildTip()
     {
-        GameObject FBT = Resources.Load<GameObject>("Prefabs/FieldBuildTip");
-        Instantiate(FBT);
+        GameObject RBT = Resources.Load<GameObject>("Prefabs/ReserveBuildTip");
+        Instantiate(RBT);
         BTN.interactable = false;
     }
 }

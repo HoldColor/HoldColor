@@ -6,7 +6,8 @@ public class BuildAreaTip : MonoBehaviour {
     public enum BuildType
     {
         Turret,
-        Field
+        Field,
+        Reserve
     }
     public BuildType Type;
     private LineRenderer linerenderer;
@@ -60,6 +61,15 @@ public class BuildAreaTip : MonoBehaviour {
                 {
                     x = Mathf.Sin((45 + 360f * i / Count) * Mathf.Deg2Rad) * Radius * Mathf.Sqrt(2);
                     y = Mathf.Cos((45 + 360f * i / Count) * Mathf.Deg2Rad) * Radius * Mathf.Sqrt(2);
+                    linerenderer.SetPosition(i, new Vector3(x, y, 0));
+                }
+                break;
+            case BuildType.Reserve:
+                linerenderer.positionCount = Count + 1;
+                for (int i = 0; i < Count + 1; i++)
+                {
+                    x = Mathf.Sin((360f * i / Count) * Mathf.Deg2Rad) * Radius;
+                    y = Mathf.Cos((360f * i / Count) * Mathf.Deg2Rad) * Radius;
                     linerenderer.SetPosition(i, new Vector3(x, y, 0));
                 }
                 break;

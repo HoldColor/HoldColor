@@ -10,7 +10,8 @@ public class FieldAreaAction : MonoBehaviour {
         ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
         FieldController FC = GetComponentInParent<FieldController>();
         if ((colliderController.Type == ColliderController.ColliderType.FieldBuildCollider 
-            || colliderController.Type == ColliderController.ColliderType.TurretBuildCollider) 
+            || colliderController.Type == ColliderController.ColliderType.TurretBuildCollider
+            || colliderController.Type == ColliderController.ColliderType.ReserveBuildCollider) 
             && !FC.IsBuilding)
         {
             CanBuild(false, colliderController, collision);
@@ -22,7 +23,8 @@ public class FieldAreaAction : MonoBehaviour {
         ColliderController colliderController = collision.gameObject.GetComponent<ColliderController>();
         FieldController FC = gameObject.GetComponentInParent<FieldController>();
         if ((colliderController.Type == ColliderController.ColliderType.FieldBuildCollider
-            || colliderController.Type == ColliderController.ColliderType.TurretBuildCollider)
+            || colliderController.Type == ColliderController.ColliderType.TurretBuildCollider
+            || colliderController.Type == ColliderController.ColliderType.ReserveBuildCollider)
             && !FC.IsBuilding)
         {
             CanBuild(true, colliderController, collision);
@@ -38,6 +40,9 @@ public class FieldAreaAction : MonoBehaviour {
                 break;
             case ColliderController.ColliderType.FieldBuildCollider:
                 collision.gameObject.GetComponent<FieldBuildTipController>().IsBuildAbled = flag;
+                break;
+            case ColliderController.ColliderType.ReserveBuildCollider:
+                collision.gameObject.GetComponent<ReserveBuildTipController>().IsBuildAbled = flag;
                 break;
         }
     }
