@@ -8,6 +8,9 @@ public class Collector : MonoBehaviour {
     public List<GameObject> Reserve;
     public List<GameObject> Turret;
     public List<GameObject> Field;
+    public Dictionary<string, GameObject> Others;
+
+
 	// Use this for initialization
 	private void Awake () {
         Player = GameObject.Find("Player");
@@ -15,11 +18,6 @@ public class Collector : MonoBehaviour {
         Reserve = new List<GameObject>();
         Turret = new List<GameObject>();
         Field = new List<GameObject>();
-
+        Others = new Dictionary<string, GameObject>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

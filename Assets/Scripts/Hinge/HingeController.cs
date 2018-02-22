@@ -4,7 +4,7 @@ using UnityEngine;
 using HoldColor.Config;
 
 public class HingeController : MonoBehaviour {
-
+    public string id;
 	public GameObject ResourceUI;
     public GameObject GameBody;
     public GameObject Info;
@@ -35,5 +35,6 @@ public class HingeController : MonoBehaviour {
         statebar.CurrentEnergy = _energy;
         statebar.CurrentHealth = _health;
         ResourceUI.GetComponent<HingeProducingResourceController>().StartAnimation();
+        GameObject.Find("Collector").GetComponent<Collector>().Hinge = gameObject;
     }
 }

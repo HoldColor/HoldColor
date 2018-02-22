@@ -4,6 +4,7 @@ using UnityEngine;
 using HoldColor.Config;
 
 public class PlayerController : MonoBehaviour {
+    public string id;
     public GameObject GameBody;
     public GameObject Path;
     public GameObject Interact;
@@ -33,6 +34,11 @@ public class PlayerController : MonoBehaviour {
         statebar.TotalEnergy = _energy;
         statebar.CurrentEnergy = 10;
         statebar.CurrentHealth = 100;
+        GameObject.Find("Collector").GetComponent<Collector>().Player = gameObject;
+        Vector3 CP = new Vector3();
+        CP = transform.position;
+        CP.z = -10;
+        Camera.main.transform.position = CP;
     }
 
     private void Update()

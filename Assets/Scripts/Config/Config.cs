@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace HoldColor.Config {
     static class GameConfig {
-        public static int _ScreenWidth = 1920;
-        public static int _ScreenHeight = 1080;
+        public static int _ScreenWidth = 1024;
+        public static int _ScreenHeight = 768;
         public static bool _FullScreen = false;
         
     }
