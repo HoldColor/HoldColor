@@ -7,7 +7,7 @@ public class WebSocketController : MonoBehaviour {
     [DllImport("__Internal")]
     private static extern void SocketConnect(string url);
     [DllImport("__Internal")]
-    private static extern void SocketSendMessage();
+    private static extern void SocketSendMessage(string msg);
     [DllImport("__Internal")]
     private static extern void SocketClose();
 
@@ -30,6 +30,11 @@ public class WebSocketController : MonoBehaviour {
         SocketConnect("ws://127.0.0.1:2222");
     }
 
+    public void Send(string msg)
+    {
+        SocketSendMessage(msg);
+    }
+
     void Open()
     {
         Debug.Log("connected!");
@@ -48,16 +53,21 @@ public class WebSocketController : MonoBehaviour {
         {
             case "InitializeMessage":
                 JsonUtility.FromJsonOverwrite(MessageBase.Message, InitializeMessage);
-                Debug.Log("InitializeMessage:" + InitializeMessage.Camp);
-                Debug.Log("InitializeMessage:" + InitializeMessage.PlayerID);
-                Debug.Log("InitializeMessage:" + InitializeMessage.PlayerPosition);
-                Debug.Log("InitializeMessage:" + InitializeMessage.HingeID);
-                Debug.Log("InitializeMessage:" + InitializeMessage.HingePosition);
                 Initialize.SendMessage("initialize", InitializeMessage);
                 break;
             case "PlayerPosition":
                 JsonUtility.FromJsonOverwrite(MessageBase.Message, PlayerPosition);
-                GameObject Player = Collector.Others[PlayerPosition.id];
+                Debug.Log("PlayerPosition:" + PlayerPosition.id);
+                Debug.Log("PlayerPosition:" + PlayerPosition.x);
+                Debug.Log("PlayerPosition:" + PlayerPosition.y);
+                GameObject Player = new GameObject();
+                foreach (Collector.KeyValuePair p in Collector.Others)
+                {
+                    if (p.key == PlayerPosition.id)
+                    {
+                        Player = p.value;
+                    }
+                }
                 Player.transform.position = new Vector3(Position.x, Position.y, 0);
                 break;
             case "OtherInitializeMessage":

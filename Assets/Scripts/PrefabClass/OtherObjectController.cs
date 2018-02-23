@@ -6,14 +6,20 @@ using HoldColor.Config;
 public class OtherObjectController : MonoBehaviour {
     public Color Camp;
     public string id;
-	void Start () {
-        
-	}
+    private Collector Collector;
+    void Start () {
+        Collector = GameObject.Find("Collector").GetComponent<Collector>();
+    }
 
     public void Init(Color camp)
     {
+        Debug.Log(gameObject.name + id);
         Camp = camp;
         gameObject.GetComponent<SpriteRenderer>().color = Camp;
         gameObject.GetComponent<ColliderController>().Camp = Camp;
+        Collector.KeyValuePair Pair = new Collector.KeyValuePair();
+        Pair.key = id;
+        Pair.value = gameObject;
+        Collector.Others.Add(Pair);
     }
 }

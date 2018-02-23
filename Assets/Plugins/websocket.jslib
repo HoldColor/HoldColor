@@ -14,7 +14,7 @@ var WebSocketLibrary = {
         }
     },
     SocketSendMessage: function (msg) {
-        webSocket.send(msg);
+        webSocket.send(Pointer_stringify(msg));
     },
     SocketClose: function () {
         webSocket.close();

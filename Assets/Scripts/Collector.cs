@@ -8,7 +8,7 @@ public class Collector : MonoBehaviour {
     public List<GameObject> Reserve;
     public List<GameObject> Turret;
     public List<GameObject> Field;
-    public Dictionary<string, GameObject> Others;
+    public List<KeyValuePair> Others;
 
 
 	// Use this for initialization
@@ -18,6 +18,12 @@ public class Collector : MonoBehaviour {
         Reserve = new List<GameObject>();
         Turret = new List<GameObject>();
         Field = new List<GameObject>();
-        Others = new Dictionary<string, GameObject>();
+        Others = new List<KeyValuePair>();
+    }
+
+    public class KeyValuePair
+    {
+        public string key;
+        public GameObject value;
     }
 }

@@ -5,6 +5,7 @@ using HoldColor.Config;
 
 public class PlayerController : MonoBehaviour {
     public string id;
+    private WebSocketController WS;
     public GameObject GameBody;
     public GameObject Path;
     public GameObject Interact;
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour {
     private int _energy;
     private Color _camp;
     private float _interactRadius;
+    private MessageBox.PlayerPosition PP;
+    private MessageBox.MessageBase MB;
     public Color Camp
     {
         get {
@@ -39,6 +42,9 @@ public class PlayerController : MonoBehaviour {
         CP = transform.position;
         CP.z = -10;
         Camera.main.transform.position = CP;
+        WS = GameObject.Find("WebSocketController").GetComponent<WebSocketController>();
+        PP = new MessageBox.PlayerPosition();
+        MB = new MessageBox.MessageBase();
     }
 
     private void Update()
@@ -47,5 +53,12 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+        PP.id = id;
+        PP.x = transform.position.x;
+        PP.y = transform.position.y;
+        MB.Type = "PlayerPosition";
+        MB.Message = JsonUtility.ToJson(PP);
+        Debug.Log(MB.Message);
+        WS.Send(JsonUtility.ToJson(MB));
     }
 }
