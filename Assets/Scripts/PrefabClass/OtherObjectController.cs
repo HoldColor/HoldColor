@@ -7,7 +7,7 @@ public class OtherObjectController : MonoBehaviour {
     public Color Camp;
     public string id;
     private Collector Collector;
-    void Start () {
+    private void Awake () {
         Collector = GameObject.Find("Collector").GetComponent<Collector>();
     }
 
@@ -17,9 +17,11 @@ public class OtherObjectController : MonoBehaviour {
         Camp = camp;
         gameObject.GetComponent<SpriteRenderer>().color = Camp;
         gameObject.GetComponent<ColliderController>().Camp = Camp;
-        Collector.KeyValuePair Pair = new Collector.KeyValuePair();
-        Pair.key = id;
-        Pair.value = gameObject;
+        Collector.KeyValuePair Pair = new Collector.KeyValuePair
+        {
+            key = id,
+            value = gameObject
+        };
         Collector.Others.Add(Pair);
     }
 }

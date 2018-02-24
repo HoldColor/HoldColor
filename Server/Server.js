@@ -29,16 +29,17 @@ wss.broadcast = function broadcast(data) {
     });
   };
 
+wss.broadcastElse = function broadcastElse(data, conn) {
+    wss.clients.forEach(function each(client) {
+        if (client !== conn && client.readyState === WebSocket.OPEN) {
+          client.send(data);
+        }
+      });
+}
+
 wss.on('connection', function(conn) {
     console.log('a user has connected');
-    InitializeMessage.forEach(element => {
-        var OtherMessage = {
-            Type: 'OtherInitializeMessage',
-            Message: JSON.stringify(element)
-        };
-        console.log('send others' + JSON.stringify(OtherMessage));
-        conn.send(JSON.stringify(OtherMessage));
-    });
+    var id = uuidv1();
     while(true) {
         var Init = {};
         var i = Math.round(Math.random() * 3);
@@ -61,15 +62,30 @@ wss.on('connection', function(conn) {
                     Init.PlayerPosition = JSON.stringify(PlayerPosition);
                     Init.PlayerID = uuidv1();
                     Init.HingeID = uuidv1();
+                    Init.id = id;
                     var OwnInitializeMessage = {
                         Type: 'InitializeMessage',
                         Message: JSON.stringify(Init)
                     }
+                    var GiveOther = {
+                        Type: 'OtherInitializeMessage',
+                        Message: JSON.stringify(Init)
+                    }
                     console.log('send own' + JSON.stringify(OwnInitializeMessage));
+                    console.log('send others' + JSON.stringify(GiveOther))
                     conn.send(JSON.stringify(OwnInitializeMessage));
+                    wss.broadcastElse(JSON.stringify(GiveOther), conn);
+                    InitializeMessage.forEach(e => {
+                        var GetOthers = {
+                            Type: 'OtherInitializeMessage',
+                            Message: JSON.stringify(e)
+                        }
+                        console.log('get others' + JSON.stringify(GetOthers));
+                        conn.send(JSON.stringify(GetOthers));
+                    })
                     InitializeMessage.push(Init);
+                    break;
                 }
-                break;
             }
             break;
         }
@@ -79,21 +95,7 @@ wss.on('connection', function(conn) {
         var messageBase = JSON.parse(data);
         switch (messageBase.Type) {
             case 'PlayerPosition':
-                var flag = 0;
-                var PP = JSON.parse(messageBase.Message);
-                AllPlayerPosition.forEach(e => {
-                    if (e.id == PP.id) {
-                        e.x = PP.x;
-                        e.y = PP.y;
-                        flag = 1;
-                    }
-                });
-                if (!flag) AllPlayerPosition.push(PP);
-                AllPlayerPosition.forEach(e => {
-                    if (e.id != PP.id) {
-                        wss.broadcast(JSON.stringify(e));
-                    }
-                })
+                wss.broadcastElse(data, conn);
             break;
         }
     })

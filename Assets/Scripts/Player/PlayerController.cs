@@ -53,6 +53,10 @@ public class PlayerController : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void FixedUpdate()
+    {
         PP.id = id;
         PP.x = transform.position.x;
         PP.y = transform.position.y;

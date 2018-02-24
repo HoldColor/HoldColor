@@ -11,6 +11,7 @@ public class MessageBox {
 
     public class InitializeMessage
     {
+        public string id;
         public string Camp;
         public string PlayerID;
         public string PlayerPosition;

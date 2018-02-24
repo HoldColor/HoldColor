@@ -12,7 +12,6 @@ public class WebSocketController : MonoBehaviour {
     private static extern void SocketClose();
 
     private MessageBox.MessageBase MessageBase;
-    private MessageBox.Position Position;
     private MessageBox.InitializeMessage InitializeMessage;
     private MessageBox.OtherInitializeMessage OtherInitializeMessage;
     private MessageBox.PlayerPosition PlayerPosition;
@@ -21,13 +20,14 @@ public class WebSocketController : MonoBehaviour {
     // Use this for initialization
    void Awake () {
         MessageBase = new MessageBox.MessageBase();
-        Position = new MessageBox.Position();
         InitializeMessage = new MessageBox.InitializeMessage();
         OtherInitializeMessage = new MessageBox.OtherInitializeMessage();
         PlayerPosition = new MessageBox.PlayerPosition();
         Collector = GameObject.Find("Collector").GetComponent<Collector>();
         Initialize = GameObject.Find("InitializeController").GetComponent<Initialize>();
-        SocketConnect("ws://127.0.0.1:2222");
+        Debug.Log("start connect");
+        SocketConnect("ws://192.168.0.106:2222");
+        Debug.Log("connect done");
     }
 
     public void Send(string msg)
@@ -57,18 +57,18 @@ public class WebSocketController : MonoBehaviour {
                 break;
             case "PlayerPosition":
                 JsonUtility.FromJsonOverwrite(MessageBase.Message, PlayerPosition);
-                Debug.Log("PlayerPosition:" + PlayerPosition.id);
-                Debug.Log("PlayerPosition:" + PlayerPosition.x);
-                Debug.Log("PlayerPosition:" + PlayerPosition.y);
                 GameObject Player = new GameObject();
                 foreach (Collector.KeyValuePair p in Collector.Others)
                 {
+                    Debug.Log(p.key);
                     if (p.key == PlayerPosition.id)
                     {
                         Player = p.value;
+                        Debug.Log("get Player");
                     }
                 }
-                Player.transform.position = new Vector3(Position.x, Position.y, 0);
+                Player.transform.position = new Vector3(PlayerPosition.x, PlayerPosition.y, 0);
+                Debug.Log("change player position");
                 break;
             case "OtherInitializeMessage":
                 JsonUtility.FromJsonOverwrite(MessageBase.Message, OtherInitializeMessage);

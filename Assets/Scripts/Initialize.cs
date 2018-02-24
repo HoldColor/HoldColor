@@ -48,6 +48,7 @@ public class Initialize : MonoBehaviour {
         GameObject player = Instantiate(Player, new Vector3(position.x, position.y, 0), new Quaternion());
         player.name = "Player";
         player.GetComponent<PlayerController>().id = message.PlayerID;
+
         position = JsonUtility.FromJson<MessageBox.Position>(message.HingePosition);
         GameObject hinge = Instantiate(Hinge, new Vector3(position.x, position.y, 0), new Quaternion());
         hinge.name = "Hinge";

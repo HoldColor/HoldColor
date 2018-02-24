@@ -13,6 +13,7 @@ public class HingeController : MonoBehaviour {
     private int _health;
     private int _energy;
     private Color _camp;
+    private Collector Collector;
     public Color Camp
     {
         get
