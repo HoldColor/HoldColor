@@ -41,5 +41,18 @@ public class MessageBox {
         public float y;
     }
 
+    public class BulletMessage
+    {
+        public string Camp;
+        public string StartPosition;
+        public string TargetID;
+    }
+
+    public class SendBulletMessage
+    {
+        public string ShooterID;
+        public string StartPosition;
+        public string TargetID;
+    }
 
 }

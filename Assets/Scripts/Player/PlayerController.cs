@@ -35,8 +35,8 @@ public class PlayerController : MonoBehaviour {
         _energy = PlayerConfig._TotalEnergy;
         statebar.TotalHealth = _health;
         statebar.TotalEnergy = _energy;
-        statebar.CurrentEnergy = 10;
-        statebar.CurrentHealth = 100;
+        statebar.CurrentEnergy = _energy;
+        statebar.CurrentHealth = _health;
         GameObject.Find("Collector").GetComponent<Collector>().Player = gameObject;
         Vector3 CP = new Vector3();
         CP = transform.position;
@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour {
         PP.y = transform.position.y;
         MB.Type = "PlayerPosition";
         MB.Message = JsonUtility.ToJson(PP);
-        Debug.Log(MB.Message);
         WS.Send(JsonUtility.ToJson(MB));
     }
 }

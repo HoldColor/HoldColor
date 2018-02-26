@@ -97,6 +97,25 @@ wss.on('connection', function(conn) {
             case 'PlayerPosition':
                 wss.broadcastElse(data, conn);
             break;
+            case 'SendBulletMessage':
+                console.log(messageBase);
+                var SBM = JSON.parse(messageBase.Message);
+                var camp;
+                InitializeMessage.forEach(e => {
+                    if (e.PlayerID === SBM.ShooterID)
+                        camp = e.Camp;
+                });
+                var message = {
+                    Camp: camp,
+                    StartPosition: SBM.StartPosition,
+                    TargetID: SBM.TargetID
+                }
+                var SendBulletMessage = {
+                    Type: 'BulletMessage',
+                    Message: JSON.stringify(message)
+                }
+                wss.broadcastElse(JSON.stringify(SendBulletMessage), conn);
+            break;
         }
     })
 

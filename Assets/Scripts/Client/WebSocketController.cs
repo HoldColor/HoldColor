@@ -15,19 +15,25 @@ public class WebSocketController : MonoBehaviour {
     private MessageBox.InitializeMessage InitializeMessage;
     private MessageBox.OtherInitializeMessage OtherInitializeMessage;
     private MessageBox.PlayerPosition PlayerPosition;
+    private MessageBox.BulletMessage BulletMessage;
     private Collector Collector;
     private Initialize Initialize;
+
+    private GameObject Bullet;
     // Use this for initialization
    void Awake () {
         MessageBase = new MessageBox.MessageBase();
         InitializeMessage = new MessageBox.InitializeMessage();
         OtherInitializeMessage = new MessageBox.OtherInitializeMessage();
         PlayerPosition = new MessageBox.PlayerPosition();
+        BulletMessage = new MessageBox.BulletMessage();
         Collector = GameObject.Find("Collector").GetComponent<Collector>();
         Initialize = GameObject.Find("InitializeController").GetComponent<Initialize>();
         Debug.Log("start connect");
         SocketConnect("ws://192.168.0.106:2222");
         Debug.Log("connect done");
+
+        Bullet = Resources.Load<GameObject>("Prefabs/OtherBullet");
     }
 
     public void Send(string msg)
@@ -47,7 +53,6 @@ public class WebSocketController : MonoBehaviour {
 
     void OnMessage(string data)
     {
-        Debug.Log("data:" + data);
         JsonUtility.FromJsonOverwrite(data, MessageBase);
         switch (MessageBase.Type)
         {
@@ -60,19 +65,34 @@ public class WebSocketController : MonoBehaviour {
                 GameObject Player = new GameObject();
                 foreach (Collector.KeyValuePair p in Collector.Others)
                 {
-                    Debug.Log(p.key);
                     if (p.key == PlayerPosition.id)
                     {
                         Player = p.value;
-                        Debug.Log("get Player");
                     }
                 }
                 Player.transform.position = new Vector3(PlayerPosition.x, PlayerPosition.y, 0);
-                Debug.Log("change player position");
                 break;
             case "OtherInitializeMessage":
                 JsonUtility.FromJsonOverwrite(MessageBase.Message, OtherInitializeMessage);
                 Initialize.SendMessage("initializeOthers", OtherInitializeMessage);
+                break;
+            case "BulletMessage":
+                Debug.Log("data:" + data);
+                JsonUtility.FromJsonOverwrite(MessageBase.Message, BulletMessage);
+                MessageBox.Position SP = new MessageBox.Position();
+                JsonUtility.FromJsonOverwrite(BulletMessage.StartPosition, SP);
+                Debug.Log("SP: x:" + SP.x + "SP:y:" + SP.y);
+                GameObject bullet = Instantiate(Bullet, new Vector3(SP.x, SP.y, 0), new Quaternion());
+                foreach (Collector.KeyValuePair p in Collector.Others)
+                {
+                    if (p.key == BulletMessage.TargetID)
+                    {
+                        bullet.GetComponent<OtherBulletController>().target = p.value;
+                        Debug.Log("get target");
+                    }
+                }
+                bullet.GetComponent<OtherBulletController>().Camp = Initialize.GetOtherCamp(BulletMessage.Camp);
+                bullet.GetComponent<OtherBulletController>().isShoot = true;
                 break;
         }
     }

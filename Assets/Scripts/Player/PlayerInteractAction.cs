@@ -4,6 +4,7 @@ using UnityEngine;
 using HoldColor.Config;
 
 public class PlayerInteractAction : MonoBehaviour {
+    private WebSocketController WS;
     private GameObject Bullet;
     private Collider2D Target;
     private PlayerController OwnController;
@@ -73,6 +74,7 @@ public class PlayerInteractAction : MonoBehaviour {
         _interactAreaRadius = PlayerConfig._InteractAreaRadius;
         interactController = gameObject.GetComponentInParent<InteractController>();
         interactController.InteractRadius = _interactAreaRadius;
+        WS = GameObject.Find("WebSocketController").GetComponent<WebSocketController>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -120,6 +122,20 @@ public class PlayerInteractAction : MonoBehaviour {
             bulletController.targetCollider = Target;
             bulletController.isShoot = true;
             bulletController.Camp = OwnController.Camp;
+
+            MessageBox.MessageBase MB = new MessageBox.MessageBase();
+            MB.Type = "SendBulletMessage";
+            MessageBox.Position SP = new MessageBox.Position
+            {
+                x = transform.position.x,
+                y = transform.position.y
+            };
+            MessageBox.SendBulletMessage SBM = new MessageBox.SendBulletMessage();
+            SBM.ShooterID = OwnController.id;
+            SBM.StartPosition = JsonUtility.ToJson(SP);
+            SBM.TargetID = Target.gameObject.GetComponent<OtherObjectController>().id;
+            MB.Message = JsonUtility.ToJson(SBM);
+            WS.Send(JsonUtility.ToJson(MB));
         }
     }
 
