@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (Info.GetComponent<StateBar>().CurrentHealth <= 0)
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 

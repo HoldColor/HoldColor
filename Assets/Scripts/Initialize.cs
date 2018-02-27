@@ -36,6 +36,7 @@ public class Initialize : MonoBehaviour {
         GameObject player = Instantiate(Player, new Vector3(position.x, position.y, 0), new Quaternion());
         player.name = "Player";
         player.GetComponent<PlayerController>().id = message.PlayerID;
+        player.GetComponentInChildren<StateBar>().id = message.PlayerID;
         Collector.Others.Add(new Collector.KeyValuePair
         {
             key = message.PlayerID,
@@ -45,6 +46,7 @@ public class Initialize : MonoBehaviour {
         GameObject hinge = Instantiate(Hinge, new Vector3(position.x, position.y, 0), new Quaternion());
         hinge.name = "Hinge";
         hinge.GetComponent<HingeController>().id = message.HingeID;
+        hinge.GetComponentInChildren<StateBar>().id = message.HingeID;
         Collector.Others.Add(new Collector.KeyValuePair
         {
             key = message.HingeID,
@@ -58,10 +60,12 @@ public class Initialize : MonoBehaviour {
         MessageBox.Position position = JsonUtility.FromJson<MessageBox.Position>(message.PlayerPosition);
         GameObject otherPlayer = Instantiate(OtherPlayer, new Vector3(position.x, position.y, 0), new Quaternion());
         otherPlayer.GetComponent<OtherObjectController>().id = message.PlayerID;
+        otherPlayer.GetComponent<OtherObjectController>().type = OtherObjectController.Type.Player;
         otherPlayer.GetComponent<OtherObjectController>().SendMessage("Init", OtherCamp);
         position = JsonUtility.FromJson<MessageBox.Position>(message.HingePosition);
         GameObject otherHinge = Instantiate(OtherHinge, new Vector3(position.x, position.y, 0), new Quaternion());
         otherHinge.GetComponent<OtherObjectController>().id = message.HingeID;
+        otherHinge.GetComponent<OtherObjectController>().type = OtherObjectController.Type.Hinge;
         otherHinge.GetComponent<OtherObjectController>().SendMessage("Init", OtherCamp);
     }
 

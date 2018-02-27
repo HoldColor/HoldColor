@@ -116,6 +116,9 @@ wss.on('connection', function(conn) {
                 }
                 wss.broadcastElse(JSON.stringify(SendBulletMessage), conn);
             break;
+            case 'ChangeStateBar':
+                wss.broadcastElse(data, conn);
+            break;
         }
     })
 

@@ -752,6 +752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff4db9741bb2024f98d09f919375af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 
 --- !u!114 &114850659721548946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -823,6 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c0e8c5e164e684bb812acb4b4c0664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Info: {fileID: 1260359467456350}
   Camp: {r: 0, g: 0, b: 0, a: 0}
   id: 
 --- !u!212 &212532780285094636

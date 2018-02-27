@@ -16,6 +16,7 @@ public class WebSocketController : MonoBehaviour {
     private MessageBox.OtherInitializeMessage OtherInitializeMessage;
     private MessageBox.PlayerPosition PlayerPosition;
     private MessageBox.BulletMessage BulletMessage;
+    private MessageBox.ChangeStateBar ChangeStateBar;
     private Collector Collector;
     private Initialize Initialize;
 
@@ -27,6 +28,7 @@ public class WebSocketController : MonoBehaviour {
         OtherInitializeMessage = new MessageBox.OtherInitializeMessage();
         PlayerPosition = new MessageBox.PlayerPosition();
         BulletMessage = new MessageBox.BulletMessage();
+        ChangeStateBar = new MessageBox.ChangeStateBar();
         Collector = GameObject.Find("Collector").GetComponent<Collector>();
         Initialize = GameObject.Find("InitializeController").GetComponent<Initialize>();
         Debug.Log("start connect");
@@ -77,7 +79,6 @@ public class WebSocketController : MonoBehaviour {
                 Initialize.SendMessage("initializeOthers", OtherInitializeMessage);
                 break;
             case "BulletMessage":
-                Debug.Log("data:" + data);
                 JsonUtility.FromJsonOverwrite(MessageBase.Message, BulletMessage);
                 MessageBox.Position SP = new MessageBox.Position();
                 JsonUtility.FromJsonOverwrite(BulletMessage.StartPosition, SP);
@@ -88,11 +89,24 @@ public class WebSocketController : MonoBehaviour {
                     if (p.key == BulletMessage.TargetID)
                     {
                         bullet.GetComponent<OtherBulletController>().target = p.value;
-                        Debug.Log("get target");
                     }
                 }
                 bullet.GetComponent<OtherBulletController>().Camp = Initialize.GetOtherCamp(BulletMessage.Camp);
                 bullet.GetComponent<OtherBulletController>().isShoot = true;
+                break;
+            case "ChangeStateBar":
+                Debug.Log(data);
+                JsonUtility.FromJsonOverwrite(MessageBase.Message, ChangeStateBar);
+                GameObject Object = new GameObject();
+                foreach (Collector.KeyValuePair p in Collector.Others)
+                {
+                    if (p.key == ChangeStateBar.id)
+                    {
+                        Object = p.value;
+                        Debug.Log("get Object");
+                    }
+                }
+                Object.GetComponentInChildren<StateBar>().ChangeInfoByMessage(ChangeStateBar);
                 break;
         }
     }

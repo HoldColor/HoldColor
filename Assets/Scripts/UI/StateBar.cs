@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using HoldColor.Config;
 
 public class StateBar : MonoBehaviour {
+    private WebSocketController WS;
+    public string id;
     private bool _isShield;
     private Slider HealthBar;
     private Slider EnergyBar;
@@ -114,6 +116,7 @@ public class StateBar : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
+        WS = GameObject.Find("WebSocketController").GetComponent<WebSocketController>();
         HealthBar = transform.Find("Health").GetComponent<Slider>();
         EnergyBar = transform.Find("Energy").GetComponent<Slider>();
         Shield = transform.Find("Shield").GetComponent<Slider>();
@@ -162,6 +165,7 @@ public class StateBar : MonoBehaviour {
             _CurrentHealth = _TotalHealth;
             RefreshHealthInfo();
         }
+        CreateMessageAndSend();
     }
     public void ConsumeHealth (float value)
     {
@@ -203,6 +207,7 @@ public class StateBar : MonoBehaviour {
                 RefreshHealthInfo();
             }
         }
+        CreateMessageAndSend();
     }
 
     public void RestoreEnergy (float value)
@@ -216,6 +221,7 @@ public class StateBar : MonoBehaviour {
             _CurrentEnergy = _TotalEnergy;
             RefreshHealthInfo();
         }
+        CreateMessageAndSend();
     }
     public void ConsumeEnergy (float value)
     {
@@ -228,6 +234,7 @@ public class StateBar : MonoBehaviour {
             _CurrentEnergy = 0;
             RefreshEnergyInfo();
         }
+        CreateMessageAndSend();
     }
     public void RestoreShield(float value)
     {
@@ -241,5 +248,28 @@ public class StateBar : MonoBehaviour {
             _CurrentShield = _TotalShield;
             RefreshShieldInfo();
         }
+        CreateMessageAndSend();
+    }
+
+    private void CreateMessageAndSend()
+    {
+        MessageBox.MessageBase MB = new MessageBox.MessageBase();
+        MB.Type = "ChangeStateBar";
+        MessageBox.ChangeStateBar CSB = new MessageBox.ChangeStateBar
+        {
+            id = id,
+            Health = _CurrentHealth,
+            Energy = _CurrentEnergy,
+            Shield = _CurrentShield
+        };
+        MB.Message = JsonUtility.ToJson(CSB);
+        WS.Send(JsonUtility.ToJson(MB));
+    }
+
+    public void ChangeInfoByMessage(MessageBox.ChangeStateBar CSB)
+    {
+        CurrentEnergy = CSB.Energy;
+        CurrentHealth = CSB.Health;
+        CurrentShield = CSB.Shield;
     }
 }

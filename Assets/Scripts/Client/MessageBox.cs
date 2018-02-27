@@ -55,4 +55,12 @@ public class MessageBox {
         public string TargetID;
     }
 
+    public class ChangeStateBar
+    {
+        public string id;
+        public float Health;
+        public float Energy;
+        public float Shield;
+    }
+
 }
