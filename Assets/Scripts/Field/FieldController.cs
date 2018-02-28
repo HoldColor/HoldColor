@@ -4,6 +4,7 @@ using UnityEngine;
 using HoldColor.Config;
 
 public class FieldController : MonoBehaviour {
+    public string id;
     private bool isBuilding;
     public bool IsBuilding
     {

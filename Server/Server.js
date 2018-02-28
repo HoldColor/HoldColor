@@ -20,7 +20,7 @@ var Position = [
     {x: 150, y: 150, isUsed: false}
 ]
 var AllPlayerPosition = [];
-
+var CampMap = [];
 wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
@@ -46,6 +46,7 @@ wss.on('connection', function(conn) {
         if(!Camp[i].isUsed) {
             Camp[i].isUsed = true;
             Init.Camp = Camp[i].color;
+            CampMap[id] = Camp[i].color;
             while(true) {
                 var j = Math.round(Math.random() * 3);
                 if (!Position[j].isUsed) {
@@ -118,6 +119,18 @@ wss.on('connection', function(conn) {
             break;
             case 'ChangeStateBar':
                 wss.broadcastElse(data, conn);
+            break;
+            case 'BuildMessage':
+                var BM = JSON.parse(messageBase.Message);
+                BM.id = uuidv1();
+                BM.Camp = CampMap[id];
+                var Mes = {
+                    Type: "BuildMessage",
+                    Message: JSON.stringify(BM)
+                }
+                conn.send(JSON.stringify(Mes));
+                Mes.Type = "OtherBuildMessage";
+                wss.broadcastElse(JSON.stringify(Mes), conn);
             break;
         }
     })

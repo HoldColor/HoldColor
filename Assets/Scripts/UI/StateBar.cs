@@ -251,7 +251,7 @@ public class StateBar : MonoBehaviour {
         CreateMessageAndSend();
     }
 
-    private void CreateMessageAndSend()
+    public void CreateMessageAndSend()
     {
         MessageBox.MessageBase MB = new MessageBox.MessageBase();
         MB.Type = "ChangeStateBar";

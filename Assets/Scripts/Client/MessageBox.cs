@@ -63,4 +63,12 @@ public class MessageBox {
         public float Shield;
     }
 
+    public class BuildMessage
+    {
+        public string Type;
+        public string id;
+        public string Position;
+        public string Camp;
+    }
+
 }

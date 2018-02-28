@@ -7,7 +7,8 @@ public class OtherObjectController : MonoBehaviour {
     public enum Type
     {
         Player,
-        Hinge
+        Hinge,
+        Field
     }
     public Type type;
     public GameObject Info;
@@ -42,6 +43,18 @@ public class OtherObjectController : MonoBehaviour {
                 statebar.TotalEnergy = _energy;
                 statebar.CurrentEnergy = _energy;
                 statebar.CurrentHealth = _health;
+                break;
+            case Type.Field:
+                _health = Field._TotalHealth;
+                _energy = Field._TotalEnergy;
+                statebar.TotalHealth = _health;
+                statebar.TotalEnergy = _energy;
+                statebar.CurrentEnergy = 0;
+                statebar.CurrentHealth = 0;
+                gameObject.GetComponent<SpriteRenderer>().color = CampDefine.Campless;
+                gameObject.GetComponentInChildren<OtherBuildingBar>().Fill.color = Camp;
+                gameObject.GetComponentInChildren<OtherBuildingBar>().TotalHealth = _health;
+                gameObject.GetComponentInChildren<OtherBuildingBar>().BuildTime = Field._BuildingTime;
                 break;
         }
         Collector.KeyValuePair Pair = new Collector.KeyValuePair

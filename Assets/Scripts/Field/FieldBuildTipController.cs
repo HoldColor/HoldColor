@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using HoldColor.Config;
 
 public class FieldBuildTipController : MonoBehaviour {
-
+    private WebSocketController WS;
     private float Radius;
     private bool isBuildAbled;
     public bool IsBuildAbled
@@ -31,6 +31,7 @@ public class FieldBuildTipController : MonoBehaviour {
         IsBuildAbled = false;
         FinalBuildAbled = true;
         FieldUIBTN = GameObject.Find("UI/BuildField");
+        WS = GameObject.Find("WebSocketController").GetComponent<WebSocketController>();
     }
     private void Update()
     {
@@ -50,9 +51,24 @@ public class FieldBuildTipController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             if (FinalBuildAbled && isBuildAbled)
-            {   
-                GameObject Turret = Resources.Load<GameObject>("Prefabs/Field");
-                Instantiate(Turret, transform.position, transform.rotation);
+            {
+                //GameObject Turret = Resources.Load<GameObject>("Prefabs/Field");
+                //Instantiate(Turret, transform.position, transform.rotation);
+                
+                WS.Send(JsonUtility.ToJson(new MessageBox.MessageBase
+                {
+                    Type = "BuildMessage",
+                    Message = JsonUtility.ToJson(new MessageBox.BuildMessage
+                    {
+                        Type = "Field",
+                        id = null,
+                        Position = JsonUtility.ToJson(new MessageBox.Position
+                        {
+                            x = transform.position.x,
+                            y = transform.position.y
+                        })
+                    })
+                }));
                 FieldUIBTN.GetComponent<Button>().interactable = true;
                 Destroy(this.gameObject);
             }

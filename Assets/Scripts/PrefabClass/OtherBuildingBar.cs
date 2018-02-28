@@ -4,13 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using HoldColor.Config;
 
-public class BuildingBarController : MonoBehaviour {
-    public enum BuildingType
-    {
-        Turret,
-        Field,
-        Reserve
-    }
+public class OtherBuildingBar : MonoBehaviour {
+
     public float BuildTime
     {
         set
@@ -26,7 +21,6 @@ public class BuildingBarController : MonoBehaviour {
             _totalHealth = value;
         }
     }
-    public BuildingType type;
     public GameObject Info;
     private float _time;
     private float _totalHealth;
@@ -34,7 +28,7 @@ public class BuildingBarController : MonoBehaviour {
     private float _currentValue;
     private float _cycle;
     private Slider Bar;
-    private Image Fill;
+    public Image Fill;
     private MonoBehaviour OwnController;
     // Use this for initialization
     private void Awake()
@@ -45,19 +39,6 @@ public class BuildingBarController : MonoBehaviour {
         Bar.value = 1f;
         _cycle = 0.1f;
         Fill = gameObject.transform.Find("bar/Fill Area/Fill").GetComponent<Image>();
-        Fill.color = GameObject.Find("InitializeController").GetComponent<Initialize>().Camp;
-        switch (type)
-        {
-            case BuildingType.Turret:
-                OwnController = GetComponentInParent<TurretController>();
-                break;
-            case BuildingType.Field:
-                OwnController = GetComponentInParent<FieldController>();
-                break;
-            case BuildingType.Reserve:
-                OwnController = GetComponentInParent<ReserveController>();
-                break;
-        }
     }
 
     private void StartBuilding()
@@ -65,16 +46,14 @@ public class BuildingBarController : MonoBehaviour {
         float ProcessByCycle = _totalValue / _time * _cycle;
         float HealthByCycle = _totalHealth / _time * _cycle;
         Processing(ProcessByCycle);
-        Info.GetComponent<StateBar>().RestoreHealth(HealthByCycle);
         if (_currentValue <= 0)
         {
             Info.GetComponent<StateBar>().CurrentHealth = _totalHealth;
-            Info.GetComponent<StateBar>().CreateMessageAndSend();
-            OwnController.SendMessage("HasBuilt", true);
+            gameObject.GetComponentInParent<OtherObjectController>().gameObject.GetComponent<SpriteRenderer>().color = Fill.color;
             CancelInvoke();
         }
     }
-    
+
     private void Processing(float ByCycle)
     {
         _currentValue -= ByCycle;

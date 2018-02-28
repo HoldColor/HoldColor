@@ -17,6 +17,7 @@ public class WebSocketController : MonoBehaviour {
     private MessageBox.PlayerPosition PlayerPosition;
     private MessageBox.BulletMessage BulletMessage;
     private MessageBox.ChangeStateBar ChangeStateBar;
+    private MessageBox.BuildMessage BuildMessage;
     private Collector Collector;
     private Initialize Initialize;
 
@@ -29,6 +30,7 @@ public class WebSocketController : MonoBehaviour {
         PlayerPosition = new MessageBox.PlayerPosition();
         BulletMessage = new MessageBox.BulletMessage();
         ChangeStateBar = new MessageBox.ChangeStateBar();
+        BuildMessage = new MessageBox.BuildMessage();
         Collector = GameObject.Find("Collector").GetComponent<Collector>();
         Initialize = GameObject.Find("InitializeController").GetComponent<Initialize>();
         Debug.Log("start connect");
@@ -107,6 +109,44 @@ public class WebSocketController : MonoBehaviour {
                     }
                 }
                 Object.GetComponentInChildren<StateBar>().ChangeInfoByMessage(ChangeStateBar);
+                break;
+            case "BuildMessage":
+                Debug.Log("BuildMessage: " + data);
+                JsonUtility.FromJsonOverwrite(MessageBase.Message, BuildMessage);
+                switch (BuildMessage.Type)
+                {
+                    case "Field":
+                        MessageBox.Position P = JsonUtility.FromJson<MessageBox.Position>(BuildMessage.Position);
+                        GameObject Field = Resources.Load<GameObject>("Prefabs/Field");
+                        GameObject field = Instantiate(Field, new Vector3 (P.x, P.y, 0), new Quaternion());
+                        field.GetComponent<FieldController>().id = BuildMessage.id;
+                        field.GetComponentInChildren<StateBar>().id = BuildMessage.id;
+                        Collector.Others.Add(new Collector.KeyValuePair
+                        {
+                            key = BuildMessage.id,
+                            value = field
+                        });
+                        break;
+                }
+                break;
+            case "OtherBuildMessage":
+                Debug.Log("OtherBuildMessage: " + data);
+                JsonUtility.FromJsonOverwrite(MessageBase.Message, BuildMessage);
+                switch (BuildMessage.Type)
+                {
+                    case "Field":
+                        MessageBox.Position P = JsonUtility.FromJson<MessageBox.Position>(BuildMessage.Position);
+                        GameObject Field = Resources.Load<GameObject>("Prefabs/OtherField");
+                        GameObject field = Instantiate(Field, new Vector3(P.x, P.y, 0), new Quaternion());
+                        field.GetComponent<OtherObjectController>().id = BuildMessage.id;
+                        field.GetComponent<OtherObjectController>().SendMessage("Init", Initialize.GetOtherCamp(BuildMessage.Camp));
+                        Collector.Others.Add(new Collector.KeyValuePair
+                        {
+                            key = BuildMessage.id,
+                            value = field
+                        });
+                        break;
+                }
                 break;
         }
     }
